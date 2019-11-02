@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateAreasTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('areas', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('description');
+            $table->unsignedBigInteger('department_accreditation_id');
+            $table->foreign('department_accreditation_id')->references('id')->on('departments');
+            $table->unsignedBigInteger('head')->nullable();
+            $table->foreign('head')->references('id')->on('users');
+            $table->decimal('status',3,2)->default(0);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('areas');
+    }
+}
