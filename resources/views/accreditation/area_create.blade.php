@@ -29,7 +29,7 @@
                             </span>
                     @endif
                 </div>
-                <div class="form-group has-feedback {{ $errors->has('area_head') ? 'has-error' : '' }}">
+                {{-- <div class="form-group has-feedback {{ $errors->has('area_head') ? 'has-error' : '' }}">
                     <label for="area_head">Head</label>
                     <select type="dropdown" name="area_head" class="form-control" value="{{ old('area_head') }}"
                            placeholder="Area Head">
@@ -43,7 +43,7 @@
                             <strong>{{ $errors->first('area_head') }}</strong>
                         </span>
                     @endif
-                </div>
+                </div> --}}
                 <input type="hidden" name="department_accreditation_id" value="{{$department_accreditation_id}}">
                 <a type="button" class="btn btn-default" href="/accreditation/area/{{$department_accreditation_id}}" ><i class="fa fa-arrow-left"></i> Back</a>
                 <button type="submit" class="btn btn-info pull-right" onClick="this.form.submit(); this.disabled=true; this.value='Processing…';"> Submit</button>

@@ -35,7 +35,7 @@
                     <select type="dropdown" name="area_head" class="form-control" value="{{ old('area_head') }}"
                            placeholder="Area Head">
                         @if($area->head != null)
-                            <option value="{{$area->head}}" selected disabled>{{$area->head->hasUser->first_name}} {{$area->head->hasUser->last_name}}</option>
+                            <option value="{{$area->head}}" selected disabled>{{$area->hasUser->first_name}} {{$area->hasUser->last_name}}</option>
                         @else
                             <option value="">-- Select Area Head --</option>
                         @endif

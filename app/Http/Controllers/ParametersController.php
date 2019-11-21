@@ -6,6 +6,8 @@ use App\Parameter;
 use App\Area;
 use App\BenchmarkList;
 use App\Benchmark;
+use App\ParameterFlag;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ParametersController extends Controller
@@ -40,6 +42,17 @@ class ParametersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function request(Request $request)
+    {
+        //return $request->parameter;
+        $request_parameter = new ParameterFlag;
+        $request_parameter->parameter_id = $request->parameter;
+        $request_parameter->user = $request->user;
+        $request_parameter->flag = 2;
+        $request_parameter->save();
+    }
+
     public function store(Request $request)
     {
         //
@@ -100,9 +113,21 @@ class ParametersController extends Controller
     public function show($id)
     {
         //
+
+        $request_parameters = ParameterFlag::where('user', Auth::user()->id)->distinct()->get('parameter_id');
+        if(count($request_parameters) > 0){
+            foreach($request_parameters as $parameter){
+                $request_parameter[] = $parameter->parameter_id; 
+            };
+        }else{
+           $request_parameter = array();
+        }
+        //return $request_parameter;
         $data = [
             'parameter_list' => Parameter::where('area_id', $id)->get(),
             'area' => Area::find($id),
+            'request_parameter' => $request_parameter,
+            'flags' => ParameterFlag::where('user', Auth::user()->id)->get(),
         ];
 
         return view('accreditation.parameter_index')->with($data);

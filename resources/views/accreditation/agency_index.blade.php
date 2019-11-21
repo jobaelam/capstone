@@ -31,9 +31,8 @@
                 <table id="sked" class="table table-condensed table-bordered sked align-middle">
                     <tbody>
                     <tr class="active">
-                        <th width="30%">Name</th>
-                        <th width="30%">Description</th>
-                        <th width="30%">Status</th>
+                        <th width="45%">Name</th>
+                        <th width="45%">Description</th>
                         @if(Auth::user()->role->id == '1')
                             <th width="10%">Action</th>
                         @else
@@ -44,18 +43,13 @@
                         <tr>
                             <td>{{$agency->name}}</td>
                             <td>{{$agency->description}}</td>
-                            <td>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar progress-bar-success" data-toggle="tooltip" title="{{100*$agency->status}}%" style="width: {{100*$agency->status}}%"></div>
-                                </div>
-                            </td>
                             @if(Auth::user()->role->id == '1')
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="accreditation/department/{{$agency->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/{{$agency->id}}/edit">Edit</a>
                                 </td>
                             @else
-                                <td align="center"><a type="button" class="btn btn-primary btn-sm" href="/department/{{$agency->id}}">Open</a></td>
+                                <td align="center"><a type="button" class="btn btn-primary btn-sm" href="accreditation/department/{{$agency->id}}">Open</a></td>
                             @endif
                         </tr>
                     @empty
@@ -64,7 +58,7 @@
                         </tr>
                     @endforelse
                 </table>
-                <a type="button" class="btn btn-default" href="/" ><i class="fa fa-arrow-left"></i> Back</a>
+                <!-- <a type="button" class="btn btn-default" href="/" ><i class="fa fa-arrow-left"></i> Back</a> -->
                 @if(Auth::user()->role->id == '1')
                     <a type="button" class="btn btn-info btn-download pull-right" href="accreditation/create"><i class="fa fa-plus"></i> &nbsp; Add Agency</a>
                 @endif

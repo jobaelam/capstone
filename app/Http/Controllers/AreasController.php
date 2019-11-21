@@ -32,7 +32,7 @@ class AreasController extends Controller
 
         $data = [
             'department_accreditation_id' => $department_accreditation->id,
-            'faculty_list' => User::where('office_department_id', $department_accreditation->department_id)
+            'faculty_list' => User::where('office_department_id', $department_accreditation->department_id)->get(),
         ];
         return view('accreditation.area_create')->with($data);
     }
@@ -58,7 +58,7 @@ class AreasController extends Controller
             $area->name = $request->area_name;
             $area->description = $request->area_description;
             $area->department_accreditation_id = $department_accreditation->id;
-            $area->head = $request->area_head;
+            //$area->head = $request->area_head;
             $area->save();
         }
         $id = $request->department_accreditation_id;
@@ -95,7 +95,7 @@ class AreasController extends Controller
         $area = Area::find($id);
         $data = [
             'area' => $area,
-            'faculty_list' => User::where('office_department_id', $area->hasDepartmentAccreditation->department_id),
+            'faculty_list' => User::where('office_department_id', $area->hasDepartmentAccreditation->department_id)->get(),
         ];
 
         return view('accreditation.area_edit')->with($data);

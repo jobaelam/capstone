@@ -46,7 +46,7 @@
                             <td>{{$area->name}}</td>
                             <td>{{$area->description}}</td>
                             @if($area->head != null)
-                                <td>{{$area->head->hasUser->first_name}}</td>
+                                <td>{{$area->hasUser->first_name}} {{$area->hasUser->last_name}}</td>
                             @else
                                 <td></td>
                             @endif
@@ -61,7 +61,7 @@
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/area/{{$area->id}}/edit">Edit</a>
                                 </td>
                             @else
-                                <td align="center"><a type="button" class="btn btn-primary btn-sm" href="/parameter/{{$area->id}}">Open</a></td>
+                                <td align="center"><a type="button" class="btn btn-primary btn-sm" href="/accreditation/parameter/{{$area->id}}">Open</a></td>
                             @endif
                         </tr>
                     @empty

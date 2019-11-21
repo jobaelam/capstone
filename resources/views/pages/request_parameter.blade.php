@@ -3,7 +3,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Accreditation</h1>
+    <h1>Request Parameter</h1>
 @stop
 
 @section('content')
@@ -20,10 +20,6 @@
                 </div>
             @endif
             <div class="btn-group hidden-print pull-right toolbar m-b10 hidden-xs" role="group" aria-label="...">
-                {{--                <button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i> Back</button>--}}
-                {{--                <button type="button" class="btn btn-default" onclick="window.print()"><i class="fa fa-print"></i> Print</button>--}}
-                {{--                <button type="button" class="btn btn-default btn-download"><i class="fa fa-download"></i> Download</button>--}}
-{{--                <a type="button" class="btn btn-default btn-download" href="/agency/create"><i class="fa fa-plus"></i> &nbsp; Add New</a>--}}
             </div>
         </div>
         <div class="box-body">
@@ -31,12 +27,10 @@
                 <table id="sked" class="table table-condensed table-bordered sked align-middle">
                     <tbody>
                     <tr class="active">
-                        <th width="30%">Department</th>
-                        <th width="30%">Accreditation Head</th>
-                        <th width="25%">Status</th>
-                        <th width="5%">Action</th>
+                        <th width="75%">Request</th>
+                        <th width="20%">Action</th>
                     </tr>
-                    @foreach($department_accreditation_list as $department_accreditation)
+                    {{-- @foreach($department_accreditation_list as $department_accreditation)
                         <tr>
                             <td>{{$department_accreditation->hasDepartment->name}}</td>
                             <td></td>
@@ -47,7 +41,7 @@
                             </td>
                             <td align="center"><a type="button" class="btn btn-primary btn-sm" href="/accreditation/area/{{$department_accreditation->id}}">Open</a></td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
 
                 </table>
                 <a type="button" class="btn btn-default" href="/accreditation" ><i class="fa fa-arrow-left"></i> Back</a>

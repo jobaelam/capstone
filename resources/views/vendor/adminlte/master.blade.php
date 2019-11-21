@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/font-awesome/css/font-awesome.min.css') }}">
     <!-- Align Middle -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/alignmiddle.css') }}">
+    <!-- Messages -->
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/message.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}">
 

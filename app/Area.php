@@ -8,7 +8,7 @@ class Area extends Model
 {
     //
     public function hasUser(){
-        return $this->hasOne(User::class, 'head', 'id');
+        return $this->belongsTo(User::class, 'head', 'id');
     }
 
     public function hasDepartmentAccreditation(){

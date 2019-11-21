@@ -7,56 +7,83 @@
 @stop
 
 @section('content')
-    <div class="box box-default ">
-        <div class="box-header with-border no-padding-bottom">
-            <p class="visible-xs pull-right">
-            </p>
-            <h3 class="visible-print">Class Schedule</h3>
-            <div class="pull-left">
-                <span><strong>ID #:</strong> 2015-2485</span>
-                <span><strong>Name:</strong> BARI, JOBAEL D.</span>
-                <span><strong>Course/Year:</strong> BSIT - 4</span>
-                <span><strong>Sem/SY:</strong> 1 / 2019-2020</span>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="user-wrapper">
+                    <ul class="users">
+                        @foreach($users as $user)
+                        <li class="user" id="{{ $user->id }}">
+                            <span class="pending">1</span>
+                            <div class="media">
+                                <div class="media-left">
+                                    <img src="{{ $user->profile_image }}" class="media-object">
+                                </div>
+                                <div class="media-body">
+                                    <p class="name">{{ $user->first_name }} {{ $user->last_name }}</p>
+                                    <p class="email">{{ $user->email }}</p>
+                                </div>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
-            <div class="clearfix visible-print"></div>
-            <div class="btn-group hidden-print pull-right toolbar m-b10 hidden-xs" role="group" aria-label="...">
-                <button type="button" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i> Back</button>
-                <button type="button" class="btn btn-default" onclick="window.print()"><i class="fa fa-print"></i> Print</button>
-                <button type="button" class="btn btn-default btn-download"><i class="fa fa-download"></i> Download</button>
-            </div>
-        </div>
-        <div class="box-body" id="dom2png">
-            <p id="dom2png-title" class="hidden">
-                <strong>ID #:</strong> 2015-2485 <strong>Name:</strong> BARI, JOBAEL D. <strong>Course/Year:</strong> BSIT - 4 <strong>Sem/SY:</strong> 1 / 2019-2020 </p>
-            <table id="sked-time-col-xs" class="table table-condensed table-bordered visible-xs">
-                <thead class="hidden-print">
-                <tr class="active">
-                    <th width="5%">Time</th>
-                </tr>
-                </thead>
-                <tbody class="hidden-print">
-                <tr>
-                    <td class="sked-time-col">07:30AM-08:00AM</td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="sked-container table-responsive">
-                <table id="sked" class="table table-condensed table-bordered sked">
-                    <tbody>
-                    <tr class="active">
-                        <th class="sked-time-col" width="5%">Time</th>
-                        <th width="30%">Monday</th>
-                        <th width="50%">Tuesday</th>
-                        <th width="15%">Wednesday</th>
-                    </tr>
-                    <tr>
-                        <td class="sked-time-col">07:30AM-08:00AM</td>
-                        <td align="center"></td>
-                        <td align="center"></td>
-                        <td align="center"></td>
-                    </tr>
-                </table>
+            <div class="col-md-8" id="messages">
+                
             </div>
         </div>
     </div>
+<script type="text/javascript">
+    var reveiver_id = '';
+    var my_id = '{{Auth::id()}}';
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('.user').click(function () {
+            $('.user').removeClass('active');
+            $(this).addClass('active');
+
+            receiver_id = $(this).attr('id');
+            $.ajax({
+                type:"get",
+                url: "message/" + receiver_id,
+                data: "",
+                cache: false,
+                success: function (data) {
+                    $('#messages').html(data);
+                }
+            })
+        });
+
+        $(document).on('keyup', '.input-text input', function(e){
+            var message = $(this).val();
+            if(e.keyCode == 13 && message != '' && receiver_id != '') {
+                $(this).val('');
+
+                // var datastr = 'receiver_id=' + receiver_id + '&message=' + message;
+                //console.log(datastr);
+                $.ajax({
+                    type: 'post',
+                    url: 'sendMessage',
+                    data: {receiver_id: receiver_id, message: message},
+                    cache: false,
+                    success: function (data) {
+                        console.log(data);
+                    }, 
+                    error: function (jqXHR, status, err) {
+
+                    },
+                    complete: function () {
+
+                    }
+                })
+            }
+        })
+    })
+</script>
 @stop

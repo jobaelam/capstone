@@ -11,9 +11,15 @@
 |
 */
 
-Route::get('/message', function () {
-    return view('messages.index');
-});
+Route::get('message', 'PagesController@message');
+
+Route::get('message/{id}', 'PagesController@getMessage');
+
+Route::get('sendMessage', 'PagesController@sendMessage');
+
+Route::get('request/parameter', 'PagesController@showRequestParameter');
+
+Route::get('request/file', 'PagesController@showRequestFile');
 
 Route::get('accreditation/department/{id}', 'PagesController@ShowDepartment');
 
@@ -28,6 +34,8 @@ Route::get('accreditation/benchmark/{id}/create', 'BenchmarksController@create')
 Route::get('accreditation/folder/{id}/create', 'FoldersController@create');
 
 Route::get('accreditation/file/{id}/upload', 'FilesController@create');
+
+Route::any('/requestParameter', 'ParametersController@request');
 
 Route::resource('accreditation', 'AgenciesController');
 
