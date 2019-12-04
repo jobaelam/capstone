@@ -1,11 +1,10 @@
-<div class="message-wrapper">
-    <ul class="messages">
+<div class="message-wrapper-message">
+    <ul class="messages-message">
         @foreach($messages as $message)    
-            <li class="message clearfix">
-                if
-                <div class="{{($message->from == Auth::id()) ? 'sent' : 'received'}}">
+            <li class="message-message clearfix">
+                <div class="{{($message->from == Auth::id()) ? 'sent-message' : 'received-message'}}">
                     <p>{{ $message->message }}</p>
-                    <p class="date">{{ data('d M y, h:i:a', strtotime($message->created_at)) }}</p>
+                    <p class="date-message">{{ date('d M y, h:i:a', strtotime($message->created_at)) }}</p>
                 </div>
             </li>
         @endforeach

@@ -10,16 +10,16 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
-                <div class="user-wrapper">
+                <div class="user-wrapper-message">
                     <ul class="users">
                         @foreach($users as $user)
-                        <li class="user" id="{{ $user->id }}">
-                            <span class="pending">1</span>
+                        <li class="user-message" id="{{ $user->id }}">
+                            <span class="pending-message">1</span>
                             <div class="media">
-                                <div class="media-left">
+                                <div class="media-left-message">
                                     <img src="{{ $user->profile_image }}" class="media-object">
                                 </div>
-                                <div class="media-body">
+                                <div class="media-body-message">
                                     <p class="name">{{ $user->first_name }} {{ $user->last_name }}</p>
                                     <p class="email">{{ $user->email }}</p>
                                 </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="col-md-8" id="messages">
-                
+
             </div>
         </div>
     </div>
@@ -44,8 +44,25 @@
             }
         });
 
-        $('.user').click(function () {
-            $('.user').removeClass('active');
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('4ce59a8acebdae2c292c', {
+            cluster: 'ap1',
+            forceTLS: true
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            alert(JSON.stringify(data));
+        });
+
+        channel.bind('pusher:subscription_succeeded', function(members) {
+            alert('successfully subscribed!');
+        });
+
+        $('.user-message').click(function () {
+            $('.user-message').removeClass('active');
             $(this).addClass('active');
 
             receiver_id = $(this).attr('id');
@@ -65,16 +82,14 @@
             if(e.keyCode == 13 && message != '' && receiver_id != '') {
                 $(this).val('');
 
-                // var datastr = 'receiver_id=' + receiver_id + '&message=' + message;
-                //console.log(datastr);
                 $.ajax({
                     type: 'post',
-                    url: 'sendMessage',
+                    url: '/sendMessage',
                     data: {receiver_id: receiver_id, message: message},
                     cache: false,
                     success: function (data) {
-                        console.log(data);
-                    }, 
+                        //alert(data);
+                    },
                     error: function (jqXHR, status, err) {
 
                     },

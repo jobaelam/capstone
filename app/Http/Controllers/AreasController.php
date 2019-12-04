@@ -77,7 +77,7 @@ class AreasController extends Controller
         //
         $data = [
             'area_list' => Area::where('department_accreditation_id', $id)->get(),
-            'department_accreditation' => DepartmentAccreditation::find($id),
+            'department_accreditation' => DepartmentAccreditation::find($id)->hasAgency->id,
         ];
 
         return view('accreditation.area_index')->with($data);

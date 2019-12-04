@@ -3,7 +3,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Request File</h1>
+    <h1>Request Parameter</h1>
 @stop
 
 @section('content')
@@ -28,23 +28,18 @@
                     <tbody>
                     <tr class="active">
                         <th width="75%">Request</th>
-                        <th width="20%">Action</th>
-                    </tr>
-                    {{-- @foreach($department_accreditation_list as $department_accreditation)
+                        <th width="15%">Action</th>
+                                   @forelse($request_files as $request_file)
                         <tr>
-                            <td>{{$department_accreditation->hasDepartment->name}}</td>
-                            <td></td>
-                            <td>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar progress-bar-success" data-toggle="tooltip" title="{{100*$department_accreditation->status}}%" style="width: {{100*$department_accreditation->status}}%"></div>
-                                </div>
-                            </td>
-                            <td align="center"><a type="button" class="btn btn-primary btn-sm" href="/accreditation/area/{{$department_accreditation->id}}">Open</a></td>
+                            <td>{{$request_file}}</td>
+                            <td align="center"><a type="button" class="btn btn-primary btn-sm" href="#">Open</a></td>
                         </tr>
-                    @endforeach --}}
-
+                    @empty
+                        <tr>
+                            <td colspan="4">No Data Available</td>
+                        </tr>
+                    @endforelse
                 </table>
-                <a type="button" class="btn btn-default" href="/accreditation" ><i class="fa fa-arrow-left"></i> Back</a>
             </div>
         </div>
     </div>

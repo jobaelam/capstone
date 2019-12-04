@@ -1,53 +1,57 @@
-ul {
+.user-wrapper-message ul {
 	margin: 0;
 	padding: 0;
 }
 
-li {
+.user-message li {
 	list-style: none;
 }
 
-.user-wrapper, .message-wrapper {
+.messages-message li {
+	list-style: none;
+}
+
+.user-wrapper-message, .message-wrapper-message {
 	border: 1px solid #dddddd;
 	overflow-y: auto;
 }
 
-.user-wrapper {
+.user-wrapper-message {
 	height: 600px;
 }
 
-.user {
+/*.user-message {
 	cursor: pointer;
 	padding: 5px 0px;
 	position: relative;
 }
 
-.user:hover {
+.user-message:hover {
 	background: #dddddd;
 }
 
-.user:last-child {
+.user-message:last-child {
 	margin-bottom: 0;
-}
+}*/
 
-.pending {
+.pending-message {
 	position: absolute;
-	left: 13px;
-	top: 9px;
-	background: #b600ff;
+	left: 4px;
+	top: 14px;
+	background: #3c8dbc;
 	margin: 0;
 	border-radius: 50%;
-	width: 18px;
-	height: 18px;
-	line-height: 18px;
-	padding-left: 5px;
+	width: 12px;
+	height: 12px;
+	line-height: 11px;
+	padding-left: 2.5px;
 	color: #ffffff;
-	font-size: 12px;
+	/*font-size: 12px;*/
 }
 
-.media-left {
+/*.media-left {
 	margin: 0 10px;
-}
+}*/
 
 .media-left img {
 	width: 64px;
@@ -58,50 +62,50 @@ li {
 	margin: 6px 6px;
 }
 
-.message-wrapper {
+.message-wrapper-message {
 	padding: 10px;
 	height: 536px;
-	background: #e1e1e1;
+	background: #fcfcfc;
 }
 
-.messages .message {
+.messages-message .message-message {
 	margin-bottom: 15px;
 }
 
-.messages .message:last-child {
+.messages-messaage .message-message:last-child {
 	margin-bottom: 0;
 }
 
-.received, .sent {
+.received-message, .sent-message {
 	width: 45%;
 	padding: 3px 10px;
 	border-radius: 10px;
 }
 
-.received {
-	background: #ffffff;
+.received-message {
+	background: #e1e1e1;
 }
 
-.sent {
+.sent-message {
 	background: #3bebff;
 	float: right;
 	text-align: right;
 }
 
-.message p {
+.message-message p {
 	margin: 5px 0;
 }
 
-.date {
+.date-message {
 	color: #777777;
 	font-size: 12px;
 }
 
-.user.active {
+/*.user-message.active {
 	background: #dddddd;
-}
+}*/
 
-input[type=text] {
+.input-text input[type=text] {
 	width: 100%;
 	padding: 12px 20px;
 	margin: 15px 0 0 0;

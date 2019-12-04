@@ -47,13 +47,13 @@
                                     <div class="progress-bar progress-bar-success" data-toggle="tooltip" title="{{100*$parameter->status}}%" style="width: {{100*$parameter->status}}%"></div>
                                 </div>
                             </td>
-                            
+                            <script type="text/javascript">alert('{{$parameter->hasArea->hasDepartmentAccreditation->id}}');</script>
                             @if(Auth::user()->role->id == '1')
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/benchmark/{{$parameter->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/parameter/{{$parameter->id}}/edit">Edit</a>
                                 </td>
-                            @elseif(Auth::user()->id == $area->head)
+                            @elseif(Auth::user()->id == $area->head OR Auth::user()->role->id == '2')
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/benchmark/{{$parameter->id}}">Open</a>
                                 </td>

@@ -15,7 +15,7 @@ Route::get('message', 'PagesController@message');
 
 Route::get('message/{id}', 'PagesController@getMessage');
 
-Route::get('sendMessage', 'PagesController@sendMessage');
+Route::post('sendMessage', 'PagesController@sendMessage');
 
 Route::get('request/parameter', 'PagesController@showRequestParameter');
 

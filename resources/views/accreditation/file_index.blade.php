@@ -32,7 +32,7 @@
                         <th width="30%">Name</th>
                         <th width="50%">Note</th>
                         <th width="10%">Date</th>
-                        @if(Auth::user()->role->id == '1')
+                        @if(Auth::user()->role->id == ('1' OR '2' OR '3'))
                             <th width="10%">Action</th>
                         @else
                             <th width="5%">Action</th>
@@ -43,7 +43,7 @@
                             <td>{{$file->name}}</td>
                             <td>{{$file->note}}</td>
                             <td>{{date('M d, Y',strtotime($file->created_at))}}</td>
-                            @if(Auth::user()->role->id == '1')
+                            @if(Auth::user()->role->id == ('1' OR '2' OR '3'))
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/file/{{$file->id}}/edit">Edit</a>
@@ -59,7 +59,7 @@
                     @endforelse
                 </table>
                 <a type="button" class="btn btn-default" href="/accreditation/folder/{{$folder->benchmark_id}}" ><i class="fa fa-arrow-left"></i> Back</a>
-                @if(Auth::user()->role->id == '1')
+                @if(Auth::user()->role->id == ('1' OR '2' OR '3'))
                     <a type="button" class="btn btn-info btn-download pull-right" href="/accreditation/file/{{$folder->id}}/upload"><i class="fa fa-plus"></i> &nbsp; Upload File</a>
                 @endif
             </div>

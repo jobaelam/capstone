@@ -28,23 +28,22 @@
                     <tbody>
                     <tr class="active">
                         <th width="75%">Request</th>
-                        <th width="20%">Action</th>
+                        <th width="15%">Action</th>
                     </tr>
-                    {{-- @foreach($department_accreditation_list as $department_accreditation)
+                    @forelse($request_parameters as $request_parameter)
                         <tr>
-                            <td>{{$department_accreditation->hasDepartment->name}}</td>
-                            <td></td>
-                            <td>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar progress-bar-success" data-toggle="tooltip" title="{{100*$department_accreditation->status}}%" style="width: {{100*$department_accreditation->status}}%"></div>
-                                </div>
+                            <td><strong>{{$request_parameter->hasUser->last_name}}, {{$request_parameter->hasUser->first_name}}</strong> want to access parameter <strong>{{ $request_parameter->hasParameter->name }}</strong></td>
+                            <td align="center">
+                                <a type="button" class="btn btn-primary btn-sm" href="#">Approve</a>
+                                <a type="button" class="btn btn-danger btn-sm" href="#">Decline</a>
                             </td>
-                            <td align="center"><a type="button" class="btn btn-primary btn-sm" href="/accreditation/area/{{$department_accreditation->id}}">Open</a></td>
                         </tr>
-                    @endforeach --}}
-
+                    @empty
+                        <tr>
+                            <td colspan="4">No Data Available</td>
+                        </tr>
+                    @endforelse
                 </table>
-                <a type="button" class="btn btn-default" href="/accreditation" ><i class="fa fa-arrow-left"></i> Back</a>
             </div>
         </div>
     </div>
