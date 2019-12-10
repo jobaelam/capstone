@@ -99,5 +99,28 @@
 	            })
 	        });
 	    });
+
+        $(document).on('keyup', '.input-text input', function(e){
+            var message = $(this).val();
+            if(e.keyCode == 13 && message != '' && receiver_id != '') {
+                $(this).val('');   
+
+                $.ajax({
+                    type: 'post',
+                    url: '/sendMessage',
+                    data: {receiver_id: receiver_id, message: message},
+                    cache: false,
+                    success: function (data) {
+                        //alert(data);
+                    },
+                    error: function (jqXHR, status, err) {
+
+                    },
+                    complete: function () {
+
+                    }
+                })
+            }
+        });
     </script>
 @stop

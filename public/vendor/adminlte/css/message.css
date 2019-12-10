@@ -46,7 +46,6 @@
 	line-height: 11px;
 	padding-left: 2.5px;
 	color: #ffffff;
-	/*font-size: 12px;*/
 }
 
 /*.media-left {
@@ -66,6 +65,10 @@
 	padding: 10px;
 	height: 536px;
 	background: #fcfcfc;
+}
+
+.messages-message {
+	overflow-y: scroll;
 }
 
 .messages-message .message-message {

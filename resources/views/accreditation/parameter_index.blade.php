@@ -47,7 +47,7 @@
                                     <div class="progress-bar progress-bar-success" data-toggle="tooltip" title="{{100*$parameter->status}}%" style="width: {{100*$parameter->status}}%"></div>
                                 </div>
                             </td>
-                            <script type="text/javascript">alert('{{$parameter->hasArea->hasDepartmentAccreditation->id}}');</script>
+                            {{-- <script type="text/javascript">alert('{{$parameter->hasArea->hasDepartmentAccreditation->id}}');</script> --}}
                             @if(Auth::user()->role->id == '1')
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/benchmark/{{$parameter->id}}">Open</a>

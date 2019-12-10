@@ -78,9 +78,11 @@
         });
 
         $(document).on('keyup', '.input-text input', function(e){
+            alert('ayay');
             var message = $(this).val();
             if(e.keyCode == 13 && message != '' && receiver_id != '') {
                 $(this).val('');
+                alert('ayay');      
 
                 $.ajax({
                     type: 'post',

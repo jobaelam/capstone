@@ -11,7 +11,7 @@
                 <div class="box-body">
                 <!-- Conversations are loaded here -->
                 <div class="direct-chat-messages">
-                    yow
+                    
                 </div>
                 <!--/.direct-chat-messages-->
                 </div>

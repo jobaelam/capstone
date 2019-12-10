@@ -70,9 +70,9 @@
                         </tr>
                     @endforelse
                 </table>
-                <a type="button" class="btn btn-default" href="/accreditation/department/{{$department_accreditation->id}}" ><i class="fa fa-arrow-left"></i> Back</a>
+                <a type="button" class="btn btn-default" href="/accreditation/department/{{$department_accreditation}}" ><i class="fa fa-arrow-left"></i> Back</a>
                 @if(Auth::user()->role->id == '1')
-                    <a type="button" class="btn btn-info btn-download pull-right" href="/accreditation/area/{{$department_accreditation->id}}/create"><i class="fa fa-plus"></i> &nbsp; Add Area</a>
+                    <a type="button" class="btn btn-info btn-download pull-right" href="/accreditation/area/{{$department_accreditation}}/create"><i class="fa fa-plus"></i> &nbsp; Add Area</a>
                 @endif
             </div>
         </div>
