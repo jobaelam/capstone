@@ -30,11 +30,11 @@
                     <tbody>
                     <tr class="active">
                         <th width="60%">Name</th>
-                        <th width="30%">Status</th>
+                        <th width="20%">Status</th>
                         @if(Auth::user()->role->id == '1')
-                            <th width="10%">Action</th>
+                            <th width="15%">Action</th>
                         @else
-                        <th width="5%">Action</th>
+                        <th width="10%">Action</th>
                         @endif
                     </tr>
                     @forelse($benchmark_list as $benchmark)

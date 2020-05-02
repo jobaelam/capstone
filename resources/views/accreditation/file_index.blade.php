@@ -29,13 +29,13 @@
                 <table id="sked" class="table table-condensed table-bordered sked align-middle">
                     <tbody>
                     <tr class="active">
-                        <th width="30%">Name</th>
-                        <th width="50%">Note</th>
+                        <th width="25%">Name</th>
+                        <th width="45%">Note</th>
                         <th width="10%">Date</th>
                         @if(Auth::user()->role->id == ('1' OR '2' OR '3'))
-                            <th width="10%">Action</th>
+                            <th width="15%">Action</th>
                         @else
-                            <th width="5%">Action</th>
+                            <th width="10%">Action</th>
                         @endif
                     </tr>
                     @forelse($file_list as $file)

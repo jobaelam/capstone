@@ -29,13 +29,13 @@
                 <table id="sked" class="table table-condensed table-bordered sked align-middle">
                     <tbody>
                     <tr class="active">
-                        <th width="30%">Name</th>
-                        <th width="30%">Description</th>
-                        <th width="30%">Status</th>
+                        <th width="25%">Name</th>
+                        <th width="35%">Description</th>
+                        <th width="20%">Status</th>
                         @if(Auth::user()->role->id == '1')
-                            <th width="10%">Action</th>
+                            <th width="15%">Action</th>
                         @else
-                            <th width="5%">Action</th>
+                            <th width="10%">Action</th>
                         @endif
                     </tr>
                     @forelse($parameter_list as $parameter)

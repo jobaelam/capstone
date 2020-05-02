@@ -25,11 +25,9 @@
 	padding: 5px 0px;
 	position: relative;
 }
-
 .user-message:hover {
 	background: #dddddd;
 }
-
 .user-message:last-child {
 	margin-bottom: 0;
 }*/
@@ -38,14 +36,14 @@
 	position: absolute;
 	left: 4px;
 	top: 14px;
-	background: #3c8dbc;
+	/* background: #3c8dbc; */
 	margin: 0;
 	border-radius: 50%;
 	width: 12px;
 	height: 12px;
 	line-height: 11px;
 	padding-left: 2.5px;
-	color: #ffffff;
+	color: #000000;
 }
 
 /*.media-left {

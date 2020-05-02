@@ -28,9 +28,9 @@
                         <span class="help-block">
                             <strong>{{ $errors->first('folder_note') }}</strong>
                         </span>
-                    @endif
+                    @endif 
                 </div>
-                <a type="button" class="btn btn-default" href="/accreditation/folder/{{$folder->parameter_id}}" ><i class="fa fa-arrow-left"></i> Back</a>
+                <a type="button" class="btn btn-default" href="/accreditation/folder/{{$folder->benchmark_id}}" ><i class="fa fa-arrow-left"></i> Back</a>
                 <button type="submit" class="btn btn-info pull-right" onClick="this.form.submit(); this.disabled=true; this.value='Processing…';"> Update</button>
             </form>
         </div>

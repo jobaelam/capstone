@@ -31,12 +31,12 @@
                 <table id="sked" class="table table-condensed table-bordered sked align-middle">
                     <tbody>
                     <tr class="active">
-                        <th width="45%">Name</th>
-                        <th width="45%">Description</th>
+                        <th width="35%">Name</th>
+                        <th width="50%">Description</th>
                         @if(Auth::user()->role->id == '1')
-                            <th width="10%">Action</th>
+                            <th width="15%">Action</th>
                         @else
-                            <th width="5%">Action</th>
+                            <th width="10%">Action</th>
                         @endif
                     </tr>
                     @forelse($agencies_list as $agency)

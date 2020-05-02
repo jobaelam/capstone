@@ -2,6 +2,11 @@
 
 @section('title', 'AdminLTE')
 
+@section('css')
+        <!-- Messages -->
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/css/message.css') }}">
+@stop
+
 @section('content_header')
     <h1>Messages</h1>
 @stop
@@ -19,7 +24,7 @@
                                 @if(Auth::user()->id != $user->id and $user->id != 1)
                                     <li class="user-message" id="{{$user->id}}" >
                                         <a href="#"><span class="user-message-name">{{$user->first_name}} {{$user->last_name}}</span> </a>
-                                        <span class="pending-message">1</span>
+                                        <span class="pending-message">{{ $user->unread != 0 ? $user->unread : ''  }}</span>
                                     </li>
                                 @endif
                             @endforeach
@@ -41,7 +46,7 @@
             </div>
             <!-- /.col -->
 
-            <div id="chatBox" class="col-md-9">
+            <div id="message" class="col-md-9">
 
             <!--/.direct-chat -->
             </div>
@@ -73,7 +78,7 @@
     </div> --}}
 
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
     	var reveiver_id = '';
     	var my_id = '{{Auth::id()}}';
     	$(document).ready(function() {
@@ -81,11 +86,9 @@
                 // var element = document.getElementById("message-wrapper-message");
                 $('message-wrapper-message').scrollTop() = 9999;
             }
-
 	    	$('.user-message').click(function () {
 	            $('.user-message').removeClass('active');
 	            $(this).addClass('active');
-
 	            receiver_id = $(this).attr('id');
 	            $.ajax({
 	                type:"get",
@@ -99,12 +102,10 @@
 	            })
 	        });
 	    });
-
         $(document).on('keyup', '.input-text input', function(e){
             var message = $(this).val();
             if(e.keyCode == 13 && message != '' && receiver_id != '') {
                 $(this).val('');   
-
                 $.ajax({
                     type: 'post',
                     url: '/sendMessage',
@@ -114,13 +115,108 @@
                         //alert(data);
                     },
                     error: function (jqXHR, status, err) {
-
                     },
                     complete: function () {
-
                     }
                 })
             }
         });
-    </script>
+    </script> --}}
+
+@section('js')
+<script src="https://js.pusher.com/6.0/pusher.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+    var receiver_id = '';
+    var my_id = "{{ Auth::id() }}";
+    $(document).ready(function () {
+        // ajax setup form csrf token
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('4ce59a8acebdae2c292c', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function (data) {
+            // alert(JSON.stringify(data));
+            if (my_id == data.from) {
+                $('#' + data.to).click();
+            } else if (my_id == data.to) {
+                if (receiver_id == data.from) {
+                    // if receiver is selected, reload the selected user ...
+                    $('#' + data.from).click();
+                } else {
+                    // if receiver is not seleted, add notification for that user
+                    var pending = parseInt($('#' + data.from).find('.pending-message').html());
+
+                    if (pending) {
+                        $('#' + data.from).find('.pending-message').html(pending + 1);
+                    } else {
+                        $('#' + data.from).append('<span class="pending-message">1</span>');
+                    }
+                }
+            }
+        });
+
+        $('.user-message').click(function () {
+            $('.user-message').removeClass('active');
+            $(this).addClass('active');
+            $(this).find('.pending-messages').remove();
+
+            receiver_id = $(this).attr('id');
+            $.ajax({
+                type: "get",
+                url: "message/" + receiver_id, // need to create this route
+                data: "",
+                cache: false,
+                success: function (data) {
+                    $('#message').html(data);
+                    scrollToBottomFunc();
+                }
+            });
+        });
+
+        $(document).on('keyup', '.input-text input', function (e) {
+            var message = $(this).val();
+
+            // check if enter key is pressed and message is not null also receiver is selected
+            if (e.keyCode == 13 && message != '' && receiver_id != '') {
+                $(this).val(''); // while pressed enter text box will be empty
+
+                var datastr = "receiver_id=" + receiver_id + "&message=" + message;
+                $.ajax({
+                    type: "post",
+                    url: "sendMessage", // need to create this post route
+                    data: datastr,
+                    cache: false,
+                    success: function (data) {
+                        
+                    },
+                    error: function (jqXHR, status, err) {
+                    },
+                    complete: function () {
+                        scrollToBottomFunc();
+                    }
+                })
+            }
+        });
+    });
+
+    // make a function to scroll down auto
+    function scrollToBottomFunc() {
+        $('.message-wrapper-message').animate({
+            scrollTop: $('.message-wrapper-message').get(0).scrollHeight
+        }, 50);
+    }
+</script>
+@endsection
 @stop
