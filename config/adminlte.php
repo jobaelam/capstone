@@ -113,11 +113,11 @@ return [
             'url'         => '/accreditation/',
             'icon'        => 'book',
         ],
-        [
-            'text'        => 'Messages',
-            'url'         => '/message',
-            'icon'        => 'inbox',
-        ],
+        // [
+        //     'text'        => 'Messages',
+        //     'url'         => '/message',
+        //     'icon'        => 'inbox',
+        // ],
         [
             'text'        => 'Request',
             'icon'        => 'flag',

@@ -6,6 +6,9 @@ use App\Agency;
 use App\Department;
 use App\DepartmentAccreditation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class AgenciesController extends Controller
 {
@@ -19,6 +22,10 @@ class AgenciesController extends Controller
         //
         $data = [
             'agencies_list' => Agency::all(),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.agency_index')->with($data);
