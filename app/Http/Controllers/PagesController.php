@@ -20,6 +20,10 @@ class PagesController extends Controller
         $data = [
             'department_accreditation_list' => DepartmentAccreditation::where('agency_id',$id)->get(),
             //'faculty' => User::where('role_id', 2)->get(),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('pages.department')->with($data);
