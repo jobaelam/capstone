@@ -118,22 +118,22 @@ return [
         //     'url'         => '/message',
         //     'icon'        => 'inbox',
         // ],
-        [
-            'text'        => 'Request',
-            'icon'        => 'flag',
-            'submenu' => [
-               [
-                   'text' => 'Parameters',
-                   'url'  => 'request/parameter',
-                   'icon' => 'circle',
-               ],
-               [
-                   'text' => 'Files',
-                   'url'  => 'request/file',
-                   'icon' => 'circle',
-               ],
-           ]
-        ],
+        // [
+        //     'text'        => 'Request',
+        //     'icon'        => 'flag',
+        //     'submenu' => [
+        //        [
+        //            'text' => 'Parameters',
+        //            'url'  => 'request/parameter',
+        //            'icon' => 'circle',
+        //        ],
+        //        [
+        //            'text' => 'Files',
+        //            'url'  => 'request/file',
+        //            'icon' => 'circle',
+        //        ],
+        //    ]
+        // ],
 //        [
 //            'text' => 'OPCR',
 //            'url'  => 'faculty-head/opcr',

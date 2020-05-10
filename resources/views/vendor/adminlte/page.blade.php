@@ -65,41 +65,18 @@
                               @endforeach
                             </a>
                           </li>
-                          <!-- Notifications: style can be found in dropdown.less -->
-                          <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                              <i class="fa fa-bell-o"></i>
-                              <span class="label label-warning">10</span>
-                            </a>
-                            <ul class="dropdown-menu boxshadow-light-dark">
-                              <li class="header">You have 10 notifications</li>
-                              <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><div class="alert alert-info-light"><i class="fa fa-info-circle"></i> No announcement posted for S.Y. 2019-2020, 1 sem.</div></li>
-                                  {{-- <li>
-                                    <a href="#">
-                                      <i class="ion ion-ios-people info"></i> Notification title
-                                    </a>
-                                  </li>
-                                  ... --}}
-                                </ul>
-                              </li>
-                              <li class="footer bg-warning"><a href="#" class="text-center">View All Notification</a></li>
-                            </ul>
-                          </li>
                           <!-- Tasks: style can be found in dropdown.less -->
                           <li class="dropdown tasks-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                               <i class="fa fa-flag-o"></i>
-                              <span class="label label-danger">9</span>
+                              <span class="label label-danger"></span>
                             </a>
                             <ul class="dropdown-menu boxshadow-light-dark">
-                              <li class="header">You have 9 tasks</li>
+                              <li class="header">Requests</li>
                               <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
-                                    <li><div class="alert alert-info-light"><i class="fa fa-info-circle"></i> No announcement posted for S.Y. 2019-2020, 1 sem.</div></li>
+                                    <li><div class="alert alert-info-light"><i class="fa fa-info-circle"></i> Temporarily Unavailable</div></li>
                                   {{-- <li><!-- Task item -->
                                     <a href="#">
                                       <h3>

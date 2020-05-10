@@ -47,6 +47,7 @@
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/file/{{$file->id}}/edit">Edit</a>
+                                    {{-- <a type="button" class="btn btn-danger btn-sm" href="/accreditation/file/{{$file->id}}/destroy" onClick="refreshPage();">Delete</a> --}}
                                 </td>
                             @else
                                 <td align="center"><a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}">Open</a></td>
@@ -65,4 +66,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function refreshPage(){
+            window.location.reload();
+        } 
+    </script>
 @stop
