@@ -14,18 +14,14 @@
 <td class="active" colspan="2"><strong>Personal</strong></td>
 </tr>
 <tr>
-<td class="warning">Student ID No.</td>
-<td>2015-2485</td>
+<td class="warning">Faculty ID No.</td>
+<td>{{Auth::user()->id}}</td>
 </tr>
 <tr>
 <td class="warning">Name</td>
-<td>JOBAEL D. BARI</td>
+<td>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</td>
 </tr>
-<tr>
-<td class="warning">Last Enrolled</td>
-<td>Second Term, AY 2019-2020</td>
-</tr>
-<tr>
+{{-- <tr>
 <td class="warning">Gender</td>
 <td>M</td>
 </tr>
@@ -70,7 +66,7 @@
 <td></td>
 </tr>
 <tr>
-<td class="warning">Permanent Address</td>
+<td class="warning">Permanent Address</td> --}}
 <td></td>
 </tr>
 </tbody>
