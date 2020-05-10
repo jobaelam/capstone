@@ -51,6 +51,8 @@ Route::resource('accreditation/folder', 'FoldersController');
 
 Route::resource('accreditation/file', 'FilesController');
 
+Route::get('accreditation/file/{id}/open', 'FilesController@openFile');
+
 Auth::routes();
 
 Route::get('/', 'AgenciesController@index')->name('home')->middleware('auth');

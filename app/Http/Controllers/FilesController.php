@@ -7,6 +7,7 @@ use App\Folder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class FilesController extends Controller
 {
@@ -20,10 +21,12 @@ class FilesController extends Controller
         //
     }
 
-    // public function open($id)
-    // {
-    //     $id
-    // }
+    public function openFile($id)
+    {
+        return '<iframe src="https://docs.google.com/gview?url=http://accreditationrepository.xyz/storage/files/'.File::find($id)->name.'&embedded=true"></iframe>';
+        // return Storage::disk('public')->download('/storage/files/', File::find($id)->name);
+        return response()->file('storage/files/'.File::find($id)->name, ['Content-Type' => 'application/pdf']);
+    }
 
     /**
      * Show the form for creating a new resource.
