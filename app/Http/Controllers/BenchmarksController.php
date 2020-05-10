@@ -6,6 +6,8 @@ use App\Benchmark;
 use App\Parameter;
 use App\Area;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BenchmarksController extends Controller
 {

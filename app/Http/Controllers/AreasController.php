@@ -7,6 +7,8 @@ use App\Area;
 use App\User;
 use App\DepartmentAccreditation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AreasController extends Controller
 {
