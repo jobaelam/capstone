@@ -28,6 +28,10 @@ class FilesController extends Controller
         //
         $data = [
             'folder_id' => $id,
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
         return view('accreditation.file_upload')->with($data);
     }
@@ -60,6 +64,10 @@ class FilesController extends Controller
         $data = [
             'file_list' => File::where('folder_id', $File->folder_id)->get(),
             'folder' => Folder::find($File->folder_id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.file_index')->with($data);;
@@ -77,6 +85,10 @@ class FilesController extends Controller
         $data = [
             'file_list' => File::where('folder_id', $id)->get(),
             'folder' => Folder::find($id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.file_index')->with($data);
@@ -93,6 +105,10 @@ class FilesController extends Controller
         //
         $data = [
             'file' => File::find($id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.file_edit')->with($data);
@@ -119,6 +135,10 @@ class FilesController extends Controller
         $data = [
             'file_list' => File::where('folder_id', $file->folder_id)->get(),
             'folder' => Folder::find($file->folder_id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.file_index')->with($data);

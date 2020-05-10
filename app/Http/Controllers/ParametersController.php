@@ -32,6 +32,10 @@ class ParametersController extends Controller
         //
         $data = [
             'area_id' => $id,
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
         return view('accreditation.parameter_create')->with($data);
     }
@@ -128,6 +132,10 @@ class ParametersController extends Controller
             'area' => Area::find($id),
             'request_parameter' => $request_parameter,
             'flags' => ParameterFlag::where('user', Auth::user()->id)->get(),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.parameter_index')->with($data);
@@ -144,6 +152,10 @@ class ParametersController extends Controller
         //
         $data = [
             'parameter' => Parameter::find($id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
         return view('accreditation.parameter_edit')->with($data);
     }
@@ -170,6 +182,10 @@ class ParametersController extends Controller
         $data = [
             'parameter_list' => Parameter::where('area_id', $parameter->area_id)->get(),
             'area' => Area::find($parameter->area_id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.parameter_index')->with($data);
