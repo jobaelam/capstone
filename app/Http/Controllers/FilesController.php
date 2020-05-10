@@ -23,7 +23,7 @@ class FilesController extends Controller
 
     public function openFile($id)
     {
-        return "<script>window.location.href('http://docs.google.com/gview?url=https://accreditationrepository.xyz/storage/files/".File::find($id)->name."&embedded=true/');</script>";
+        return "<script>window.location.href = 'http://docs.google.com/gview?url=https://accreditationrepository.xyz/storage/files/".File::find($id)->name."&embedded=true/';</script>";
         // return Storage::disk('public')->download('/storage/files/', File::find($id)->name);
         // return response()->file('storage/files/'.File::find($id)->name, ['Content-Type' => 'application/pdf']);
     }
