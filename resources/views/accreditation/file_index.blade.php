@@ -45,7 +45,7 @@
                             <td>{{date('M d, Y',strtotime($file->created_at))}}</td>
                             @if(Auth::user()->role->id == ('1' OR '2' OR '3'))
                                 <td align="center">
-                                    <a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}">Open</a>
+                                <a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}" onClick="window.open('http://docs.google.com/gview?url=https://accreditationrepository.xyz/storage/files/'+{{$file->name}}+'&embedded=true/');">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/file/{{$file->id}}/edit">Edit</a>
                                     {{-- <a type="button" class="btn btn-danger btn-sm" href="/accreditation/file/{{$file->id}}/destroy" onClick="refreshPage();">Delete</a> --}}
                                 </td>
@@ -71,5 +71,18 @@
         function refreshPage(){
             window.location.reload();
         } 
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('.open').click(function() {
+            var open = $(this).val();
+            $.get('/openFile', {file:open, access: "{{$area->id}}"},function(data){
+                // window.open('/storage/files/'+data);
+                window.open('http://docs.google.com/gview?url=https://myiit.pagekite.me/storage/files/'+data+'&embedded=true/');
+            })
+    })
+
+        });
     </script>
 @stop
