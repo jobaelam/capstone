@@ -45,7 +45,7 @@
                             <td>{{date('M d, Y',strtotime($file->created_at))}}</td>
                             @if(Auth::user()->role->id == ('1' OR '2' OR '3'))
                                 <td align="center">
-                                <a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}/open" >Open</a>
+                                <a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}/open" onClick="refreshPage();">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/file/{{$file->id}}/edit">Edit</a>
                                     {{-- <a type="button" class="btn btn-danger btn-sm" href="/accreditation/file/{{$file->id}}/destroy" onClick="refreshPage();">Delete</a> --}}
                                 </td>
