@@ -72,17 +72,4 @@
             window.location.reload();
         } 
     </script>
-
-    <script>
-        $(document).ready(function(){
-            $('.open').click(function() {
-            var open = $(this).val();
-            $.get('/openFile', {file:open, access: "{{$area->id}}"},function(data){
-                // window.open('/storage/files/'+data);
-                window.open('http://docs.google.com/gview?url=https://myiit.pagekite.me/storage/files/'+data+'&embedded=true/');
-            })
-    })
-
-        });
-    </script>
 @stop
