@@ -12,5 +12,5 @@
 </div>
 
 <div class="input-text">
-    <input type="text" name="message" class="submit">
+    <input type="text" name="message" class="submit" placeholder="Type a message..."
 </div>
