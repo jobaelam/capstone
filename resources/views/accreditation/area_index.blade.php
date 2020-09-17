@@ -55,7 +55,7 @@
                                     <div class="progress-bar progress-bar-success" data-toggle="tooltip" title="{{100*$area->status}}%" style="width: {{100*$area->status}}%"></div>
                                 </div>
                             </td>
-                            @if(Auth::user()->role->id == '1')
+                            @if(Auth::user()->role->id == '1' AND Auth::user()->office_department_id == '{{$area->department_accreditation_id}}')
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/parameter/{{$area->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/area/{{$area->id}}/edit">Edit</a>

@@ -18,17 +18,15 @@
                 <div class="user-wrapper-message">
                     <div class="box-body no-padding">
                     <ul class="nav nav-pills nav-stacked">
-                        @if(count($users) > 0)
-                            @foreach($users as $user)
-                            @csrf
-                                @if(Auth::user()->id != $user->id and $user->id != 1)
-                                    <li class="user-message" id="{{$user->id}}" >
-                                        <a href="#"><span class="user-message-name">{{$user->first_name}} {{$user->last_name}}</span> </a>
-                                        <span class="pending-message">{{ $user->unread != 0 ? $user->unread : ''  }}</span>
-                                    </li>
-                                @endif
-                            @endforeach
-                         @endif
+                        @foreach($users as $user)
+                        @csrf
+                            @if(Auth::user()->id != $user->id and $user->id != 1)
+                                <li class="user-message" id="{{$user->id}}" >
+
+                                    <a href="#"><span class="user-message-name">{{$user->first_name}} {{$user->last_name}}</span> </a>
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                     </div>
                 </div>
@@ -40,7 +38,7 @@
                         </button>
                     </div>
                     </div> --}}
-                    
+
                 <!-- /.box-body -->
             </div>
             </div>
@@ -52,20 +50,20 @@
             </div>
 
             <div class="col-md-2">
-    
-            
+
+
             </div>
             <!-- /.col -->
-          
+
             </div>
             <!-- /.col -->
         </div>
 {{--         <div class="box">
             <div class="col-lg-4 col-lg-offset-4">
                 <h1 id="greeting">Hello, <span id="username">{{Auth::user()->id}}</span></h1>
-        
+
                 <div id="chat-window" class="col-lg-12">
-        
+
                 </div>
                 <div class="col-lg-12">
                     <div id="typingStatus" class="col-lg-12" style="padding: 15px"></div>
@@ -105,7 +103,7 @@
         $(document).on('keyup', '.input-text input', function(e){
             var message = $(this).val();
             if(e.keyCode == 13 && message != '' && receiver_id != '') {
-                $(this).val('');   
+                $(this).val('');
                 $.ajax({
                     type: 'post',
                     url: '/sendMessage',
@@ -199,7 +197,7 @@
                     data: datastr,
                     cache: false,
                     success: function (data) {
-                        
+
                     },
                     error: function (jqXHR, status, err) {
                     },

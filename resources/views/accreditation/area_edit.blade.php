@@ -50,7 +50,7 @@
                     @endif
                 </div>
                 <input type="hidden" >
-                <a type="button" class="btn btn-default" href="/area/{{$area->agency_id}}" ><i class="fa fa-arrow-left"></i> Back</a>
+                <a type="button" class="btn btn-default" href="/accreditation/area/{{$area->department_accreditation_id}}" ><i class="fa fa-arrow-left"></i> Back</a>
                 <button type="submit" class="btn btn-info pull-right" onClick="this.form.submit(); this.disabled=true; this.value='Processing…';"> Update</button>
             </form>
         </div>

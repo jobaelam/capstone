@@ -109,6 +109,7 @@
                               <li class="footer bg-warning"><a href="#" class="text-center">View All Notification</a></li>
                             </ul>
                           </li>
+                          {{-- @if(Auth::user()->role_id < 3)
                           <!-- Tasks: style can be found in dropdown.less -->
                           <li class="dropdown tasks-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -121,20 +122,6 @@
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
                                     <li><div class="alert alert-info-light"><i class="fa fa-info-circle"></i> No announcement posted for S.Y. 2019-2020, 1 sem.</div></li>
-                                  {{-- <li><!-- Task item -->
-                                    <a href="#">
-                                      <h3>
-                                        Design some buttons
-                                        <small class="pull-right">20%</small>
-                                      </h3>
-                                      <div class="progress xs">
-                                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                          <span class="sr-only">20% Complete</span>
-                                        </div>
-                                      </div>
-                                    </a>
-                                  </li><!-- end task item -->
-                                  ... --}}
                                 </ul>
                               </li>
                               <li class="footer">
@@ -142,6 +129,7 @@
                               </li>
                             </ul>
                           </li>
+                          @endif --}}
                         <li class="dropdown user user-menu">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
                                 <div class="user-image">
@@ -237,7 +225,61 @@
 
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+                    <li>
+                        <a href="/accreditation">
+                          <i class="fa fa-book"></i> <span>Accreditation</span>
+                          <span class="pull-right-container">
+                            <small class="label pull-right bg-green"></small>
+                          </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/message">
+                          <i class="fa fa-inbox"></i> <span>Messages</span>
+                          <span class="pull-right-container">
+                            <small class="label pull-right bg-green"></small>
+                          </span>
+                        </a>
+                    </li>
+                    @if(Auth::user()->role_id < 3)
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-flag"></i> <span>Request</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="display: none;">
+                            <li><a href="index.html"><i class="fa fa-circle"></i> Parameters</a></li>
+                            <li><a href="index2.html"><i class="fa fa-circle"></i> Files</a></li>
+                        </ul>
+                    </li>
+                    @endif
+                    {{-- <li class="active treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="display: none;">
+                            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                        </ul>
+                    </li>
+                    <li class="active treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="display: none;">
+                            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                        </ul>
+                    </li>
+                    @each('adminlte::partials.menu-item', $adminlte->menu(), 'item') --}}
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>
@@ -276,6 +318,21 @@
 
 @section('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script>
+        /** add active class and stay opened when selected */
+        var url = window.location;
+
+        // for sidebar menu entirely but not cover treeview
+        $('ul.sidebar-menu a').filter(function() {
+        return this.href == url;
+        }).parent().addClass('active');
+
+        // for treeview
+        $('ul.treeview-menu a').filter(function() {
+        return this.href == url;
+        }).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
+    </script>
+
     @stack('js')
     @yield('js')
 @stop

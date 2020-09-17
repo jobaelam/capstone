@@ -48,7 +48,7 @@
                                 </div>
                             </td>
                             {{-- <script type="text/javascript">alert('{{$parameter->hasArea->hasDepartmentAccreditation->id}}');</script> --}}
-                            @if(Auth::user()->role->id == '1')
+                            @if(Auth::user()->role->id == '1' AND Auth::user()->office_department_id == '{{$area->department_accreditation_id}}')
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/benchmark/{{$parameter->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/parameter/{{$parameter->id}}/edit">Edit</a>
