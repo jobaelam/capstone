@@ -78,7 +78,7 @@
                     @endforelse
                 </table>
                 <a type="button" class="btn btn-default" href="/accreditation/area/{{$area->department_accreditation_id}}" ><i class="fa fa-arrow-left"></i> Back</a>
-                @if(Auth::user()->role->id == '1')
+                @if(Auth::user()->role->id == ('1' OR '2' OR '3') AND Auth::user()->office_department_id == $area->department_accreditation_id)
                     <a type="button" class="btn btn-info btn-download pull-right" href="/accreditation/parameter/{{$area->id}}/create"><i class="fa fa-plus"></i> &nbsp; Add Parameter</a>
                 @endif
             </div>

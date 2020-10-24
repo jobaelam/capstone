@@ -7,6 +7,8 @@ use App\Area;
 use App\User;
 use App\DepartmentAccreditation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AreasController extends Controller
 {
@@ -33,6 +35,10 @@ class AreasController extends Controller
         $data = [
             'department_accreditation_id' => $department_accreditation->id,
             'faculty_list' => User::where('office_department_id', $department_accreditation->department_id)->get(),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
         return view('accreditation.area_create')->with($data);
     }
@@ -78,6 +84,10 @@ class AreasController extends Controller
         $data = [
             'area_list' => Area::where('department_accreditation_id', $id)->get(),
             'department_accreditation' => DepartmentAccreditation::find($id)->hasAgency->id,
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.area_index')->with($data);
@@ -96,6 +106,10 @@ class AreasController extends Controller
         $data = [
             'area' => $area,
             'faculty_list' => User::where('office_department_id', $area->hasDepartmentAccreditation->department_id)->get(),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.area_edit')->with($data);
@@ -124,6 +138,10 @@ class AreasController extends Controller
         $data = [
             'area_list' => Area::where('department_accreditation_id', $area->department_accreditation_id)->get(),
             'department_accreditation' => DepartmentAccreditation::find($area->department_accreditation_id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.area_index')->with($data);

@@ -25,6 +25,8 @@ Route::get('accreditation/department/{id}', 'PagesController@ShowDepartment');
 
 Route::get('accreditation', 'PagesController@ShowAgency');
 
+Route::get('profile', 'PagesController@Profile');
+
 Route::get('accreditation/area/{id}/create', 'AreasController@create');
 
 Route::get('accreditation/parameter/{id}/create', 'ParametersController@create');
@@ -48,6 +50,8 @@ Route::resource('accreditation/benchmark', 'BenchmarksController');
 Route::resource('accreditation/folder', 'FoldersController');
 
 Route::resource('accreditation/file', 'FilesController');
+
+Route::get('accreditation/file/{id}/open', 'FilesController@openFile');
 
 Auth::routes();
 

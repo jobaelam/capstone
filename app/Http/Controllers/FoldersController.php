@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Benchmark;
 use App\Folder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FoldersController extends Controller
 {
@@ -28,6 +30,10 @@ class FoldersController extends Controller
         //
         $data = [
             'benchmark_id' => $id,
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
         return view('accreditation.folder_create')->with($data);
     }
@@ -68,6 +74,10 @@ class FoldersController extends Controller
         $data = [
             'folder_list' => Folder::where('benchmark_id', $id)->get(),
             'benchmark' => Benchmark::find($id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.folder_index')->with($data);
@@ -84,6 +94,10 @@ class FoldersController extends Controller
         //
         $data = [
             'folder' => Folder::find($id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
         return view('accreditation.folder_edit')->with($data);
     }
@@ -110,6 +124,10 @@ class FoldersController extends Controller
         $data = [
             'folder_list' => Folder::where('benchmark_id', $folder->benchmark_id)->get(),
             'benchmark' => Benchmark::find($folder->benchmark_id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.folder_index')->with($data);

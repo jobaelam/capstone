@@ -58,78 +58,13 @@
 
                     <ul class="nav navbar-nav">
                         <li class="dropdown messages-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="/message">
                               <i class="fa fa-envelope-o"></i>
-                              <span class="label label-success">4</span>
+                              @foreach($users as $user)
+                              <span class="label label-success">{{ $user->unread != 0 ? $user->unread : ''  }}</span>
+                              @endforeach
                             </a>
-                            <ul class="dropdown-menu boxshadow-light-dark">
-                              <li class="header">You have 4 messages</li>
-                              <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><div class="alert alert-info-light"><i class="fa fa-info-circle"></i> No announcement posted for S.Y. 2019-2020, 1 sem.</div></li>
-                                  {{-- <li><!-- start message -->
-                                    <a href="#">
-                                      <div class="pull-left">
-                                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                      </div>
-                                      <h4>
-                                        Sender Name
-                                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                      </h4>
-                                      <p>Message Excerpt</p>
-                                    </a>
-                                  </li><!-- end message -->
-                                  ... --}}
-                                </ul>
-                              </li>
-                              <li class="footer bg-warning"><a href="#" class="text-center">View All Messages</a></li>
-                            </ul>
                           </li>
-                          <!-- Notifications: style can be found in dropdown.less -->
-                          <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                              <i class="fa fa-bell-o"></i>
-                              <span class="label label-warning">10</span>
-                            </a>
-                            <ul class="dropdown-menu boxshadow-light-dark">
-                              <li class="header">You have 10 notifications</li>
-                              <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><div class="alert alert-info-light"><i class="fa fa-info-circle"></i> No announcement posted for S.Y. 2019-2020, 1 sem.</div></li>
-                                  {{-- <li>
-                                    <a href="#">
-                                      <i class="ion ion-ios-people info"></i> Notification title
-                                    </a>
-                                  </li>
-                                  ... --}}
-                                </ul>
-                              </li>
-                              <li class="footer bg-warning"><a href="#" class="text-center">View All Notification</a></li>
-                            </ul>
-                          </li>
-                          {{-- @if(Auth::user()->role_id < 3)
-                          <!-- Tasks: style can be found in dropdown.less -->
-                          <li class="dropdown tasks-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                              <i class="fa fa-flag-o"></i>
-                              <span class="label label-danger">9</span>
-                            </a>
-                            <ul class="dropdown-menu boxshadow-light-dark">
-                              <li class="header">You have 9 tasks</li>
-                              <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><div class="alert alert-info-light"><i class="fa fa-info-circle"></i> No announcement posted for S.Y. 2019-2020, 1 sem.</div></li>
-                                </ul>
-                              </li>
-                              <li class="footer">
-                                <li class="footer bg-warning"><a href="#" class="text-center">View All Request</a></li>
-                              </li>
-                            </ul>
-                          </li>
-                          @endif --}}
                         <li class="dropdown user user-menu">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
                                 <div class="user-image">
@@ -161,7 +96,7 @@
                                     </p>
                                     @endif
                                     <div class="btn-group" role="group" aria-label="...">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="/profile" class="btn btn-default btn-flat">Profile</a>
                                         <a href="#" class="btn btn-default btn-flat">Settings</a>
                                     </div>
                                     <div class="pull-right">
@@ -250,8 +185,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu" style="display: none;">
-                            <li><a href="index.html"><i class="fa fa-circle"></i> Parameters</a></li>
-                            <li><a href="index2.html"><i class="fa fa-circle"></i> Files</a></li>
+                            <li><a href="request/parameter"><i class="fa fa-circle"></i> Parameters</a></li>
+                            <li><a href="request/file"><i class="fa fa-circle"></i> Files</a></li>
                         </ul>
                     </li>
                     @endif
@@ -318,6 +253,7 @@
 
 @section('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+<<<<<<< HEAD
     <script>
         /** add active class and stay opened when selected */
         var url = window.location;
@@ -333,6 +269,102 @@
         }).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
     </script>
 
+=======
+    <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+        var receiver_id = '';
+        var my_id = "{{ Auth::id() }}";
+        $(document).ready(function () {
+            // ajax setup form csrf token
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('4ce59a8acebdae2c292c', {
+                cluster: 'ap1'
+            });
+
+            var channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', function (data) {
+                // alert(JSON.stringify(data));
+                if (my_id == data.from) {
+                    $('#' + data.to).click();
+                } else if (my_id == data.to) {
+                    if (receiver_id == data.from) {
+                        // if receiver is selected, reload the selected user ...
+                        $('#' + data.from).click();
+                    } else {
+                        // if receiver is not seleted, add notification for that user
+                        var pending = parseInt($('#' + data.from).find('.pending-message').html());
+
+                        if (pending) {
+                            $('#' + data.from).find('.pending-message').html(pending + 1);
+                        } else {
+                            $('#' + data.from).append('<span class="pending-message">1</span>');
+                        }
+                    }
+                }
+            });
+
+            $('.user-message').click(function () {
+                $('.user-message').removeClass('active');
+                $(this).addClass('active');
+                $(this).find('.pending-messages').remove();
+
+                receiver_id = $(this).attr('id');
+                $.ajax({
+                    type: "get",
+                    url: "message/" + receiver_id, // need to create this route
+                    data: "",
+                    cache: false,
+                    success: function (data) {
+                        $('#message').html(data);
+                        scrollToBottomFunc();
+                    }
+                });
+            });
+
+            $(document).on('keyup', '.input-text input', function (e) {
+                var message = $(this).val();
+
+                // check if enter key is pressed and message is not null also receiver is selected
+                if (e.keyCode == 13 && message != '' && receiver_id != '') {
+                    $(this).val(''); // while pressed enter text box will be empty
+
+                    var datastr = "receiver_id=" + receiver_id + "&message=" + message;
+                    $.ajax({
+                        type: "post",
+                        url: "sendMessage", // need to create this post route
+                        data: datastr,
+                        cache: false,
+                        success: function (data) {
+                            
+                        },
+                        error: function (jqXHR, status, err) {
+                        },
+                        complete: function () {
+                            scrollToBottomFunc();
+                        }
+                    })
+                }
+            });
+        });
+
+        // make a function to scroll down auto
+        function scrollToBottomFunc() {
+            $('.message-wrapper-message').animate({
+                scrollTop: $('.message-wrapper-message').get(0).scrollHeight
+            }, 50);
+        }
+    </script>
+>>>>>>> a4b6bc54790a52e9f6291bb323f6d3102321c95e
     @stack('js')
     @yield('js')
 @stop

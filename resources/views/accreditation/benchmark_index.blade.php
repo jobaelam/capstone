@@ -45,7 +45,7 @@
                                     <div class="progress-bar progress-bar-success" data-toggle="tooltip" title="{{100*$benchmark->status}}%" style="width: {{100*$benchmark->status}}%"></div>
                                 </div>
                             </td>
-                            @if(Auth::user()->role->id == '1')
+                            @if(Auth::user()->role->id == ('1' OR '3'))
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/folder/{{$benchmark->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/benchmark/{{$benchmark->id}}/edit">Edit</a>

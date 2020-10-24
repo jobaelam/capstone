@@ -6,6 +6,8 @@ use App\Benchmark;
 use App\Parameter;
 use App\Area;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BenchmarksController extends Controller
 {
@@ -52,6 +54,10 @@ class BenchmarksController extends Controller
         $data = [
             'benchmark_list' => Benchmark::where('parameter_id', $id)->get(),
             'parameter' => Parameter::find($id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.benchmark_index')->with($data);
@@ -67,7 +73,11 @@ class BenchmarksController extends Controller
     {
         //
         $data = [
-            'benchmark' => Benchmark::find($id)
+            'benchmark' => Benchmark::find($id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.benchmark_edit')->with($data);
@@ -123,6 +133,10 @@ class BenchmarksController extends Controller
         $data = [
             'benchmark_list' => Benchmark::where('parameter_id', $benchmark->parameter_id)->get(),
             'parameter' => Parameter::find($benchmark->parameter_id),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.benchmark_index')->with($data);

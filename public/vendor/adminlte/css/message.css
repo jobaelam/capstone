@@ -65,9 +65,9 @@
 	background: #fcfcfc;
 }
 
-.messages-message {
+/* .messages-message {
 	overflow-y: scroll;
-}
+} */
 
 .messages-message .message-message {
 	margin-bottom: 15px;

@@ -55,13 +55,13 @@
                                     <div class="progress-bar progress-bar-success" data-toggle="tooltip" title="{{100*$area->status}}%" style="width: {{100*$area->status}}%"></div>
                                 </div>
                             </td>
-                            @if(Auth::user()->role->id == '1' AND Auth::user()->office_department_id == '{{$area->department_accreditation_id}}')
+                            @if(Auth::user()->role->id == ('2' OR '3') AND Auth::user()->office_department_id == $area->department_accreditation_id OR Auth::user()->role->id == 1)
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/parameter/{{$area->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/area/{{$area->id}}/edit">Edit</a>
                                 </td>
                             @else
-                                <td align="center"><a type="button" class="btn btn-primary btn-sm" href="/accreditation/parameter/{{$area->id}}">Open</a></td>
+                                <td align="center"><a type="button" class="btn btn-warning btn-sm" href="./{{$area->department_accreditation_id}}">Request</a></td>
                             @endif
                         </tr>
                     @empty
@@ -71,7 +71,7 @@
                     @endforelse
                 </table>
                 <a type="button" class="btn btn-default" href="/accreditation/department/{{$department_accreditation}}" ><i class="fa fa-arrow-left"></i> Back</a>
-                @if(Auth::user()->role->id == '1')
+                @if((Auth::user()->role->id == ('2' OR '3') AND Auth::user()->office_department_id == $area->department_accreditation_id) OR Auth::user()->role->id == 1)
                     <a type="button" class="btn btn-info btn-download pull-right" href="/accreditation/area/{{$department_accreditation}}/create"><i class="fa fa-plus"></i> &nbsp; Add Area</a>
                 @endif
             </div>

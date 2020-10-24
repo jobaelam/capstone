@@ -20,6 +20,10 @@ class PagesController extends Controller
         $data = [
             'department_accreditation_list' => DepartmentAccreditation::where('agency_id',$id)->get(),
             //'faculty' => User::where('role_id', 2)->get(),
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('pages.department')->with($data);
@@ -28,6 +32,7 @@ class PagesController extends Controller
     public function showRequestFile(){
         $data = [
             'request_files' => FileFlag::all(),
+            'users' => User::where('id', '!=', Auth::user()->id)->get(),
         ];
     	return view('pages.request_file')->with($data);
     }
@@ -35,6 +40,7 @@ class PagesController extends Controller
     public function showRequestParameter(){
         $data = [
             'request_parameters' => ParameterFlag::all(),
+            'users' => User::where('id', '!=', Auth::user()->id)->get(),
         ];
     	return view('pages.request_parameter')->with($data);
     }
@@ -45,6 +51,16 @@ class PagesController extends Controller
     // 	];
     // 	return view('messages.messages')->with($data);
     // }
+
+    public function Profile(){
+        $data = [
+            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
+        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+        where users.id != " . Auth::id() . " 
+        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
+        ];
+        return view('pages.profile')->with($data);
+    }
 
     public function message(){
 
