@@ -21,7 +21,7 @@
 <td class="warning">Name</td>
 <td>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</td>
 </tr>
-{{-- <tr>
+<tr>
 <td class="warning">Gender</td>
 <td>M</td>
 </tr>
@@ -66,7 +66,7 @@
 <td></td>
 </tr>
 <tr>
-<td class="warning">Permanent Address</td> --}}
+<td class="warning">Permanent Address</td>
 <td></td>
 </tr>
 </tbody>

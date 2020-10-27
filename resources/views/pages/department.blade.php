@@ -37,7 +37,9 @@
                         <th width="5%">Action</th>
                     </tr>
                     @foreach($department_accreditation_list as $department_accreditation)
+                        @if((Auth::user()->role->id == 1 OR Auth::user()->role->id == 2 OR Auth::user()->role->id == 3) OR Auth::user()->office_department_id == $department_accreditation->id)
                         <tr>
+                            {{$department_accreditation->hasUser->last_name}}
                             <td>{{$department_accreditation->hasDepartment->name}}</td>
                             <td></td>
                             <td>
@@ -47,6 +49,7 @@
                             </td>
                             <td align="center"><a type="button" class="btn btn-primary btn-sm" href="/accreditation/area/{{$department_accreditation->id}}">Open</a></td>
                         </tr>
+                        @endif
                     @endforeach
 
                 </table>

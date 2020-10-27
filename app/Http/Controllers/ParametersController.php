@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Parameter;
+use App\User;
 use App\Area;
+use App\FileFlag;
 use App\BenchmarkList;
 use App\Benchmark;
 use App\ParameterFlag;
@@ -48,7 +50,7 @@ class ParametersController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function request(Request $request)
+    public function requestParameter(Request $request)
     {
         //return $request->parameter;
         $request_parameter = new ParameterFlag;
@@ -56,6 +58,20 @@ class ParametersController extends Controller
         $request_parameter->user = $request->user;
         $request_parameter->flag = 2;
         $request_parameter->save();
+    }
+
+    public function requestParameterApprove(Request $request)
+    {
+        //return $request->id;
+        //return ParameterFlag::find(7);
+        $request_parameter = ParameterFlag::find($request->id);
+        $request_parameter->flag = 1;
+        $request_parameter->save();
+    }
+
+    public function requestParameterDecline(Request $request)
+    {
+        ParameterFlag::destroy($request->id);
     }
 
     public function store(Request $request)

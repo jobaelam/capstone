@@ -48,12 +48,12 @@
                                 </div>
                             </td>
                             {{-- <script type="text/javascript">alert('{{$parameter->hasArea->hasDepartmentAccreditation->id}}');</script> --}}
-                            @if(Auth::user()->role->id == '1' AND Auth::user()->office_department_id == '{{$area->department_accreditation_id}}')
+                            @if((Auth::user()->role->id == 2 AND Auth::user()->office_department_id == $area->department_accreditation_id) OR Auth::user()->role->id == 1)
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/benchmark/{{$parameter->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/parameter/{{$parameter->id}}/edit">Edit</a>
                                 </td>
-                            @elseif(Auth::user()->id == $area->head OR Auth::user()->role->id == '2')
+                            @elseif(Auth::user()->id == $area->head)
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/benchmark/{{$parameter->id}}">Open</a>
                                 </td>
@@ -78,7 +78,7 @@
                     @endforelse
                 </table>
                 <a type="button" class="btn btn-default" href="/accreditation/area/{{$area->department_accreditation_id}}" ><i class="fa fa-arrow-left"></i> Back</a>
-                @if(Auth::user()->role->id == ('1' OR '2' OR '3') AND Auth::user()->office_department_id == $area->department_accreditation_id)
+                @if(((Auth::user()->role->id == 2 OR Auth::user()->role->id == 3) AND Auth::user()->office_department_id == $area->department_accreditation_id) OR Auth::user()->role->id == 1)
                     <a type="button" class="btn btn-info btn-download pull-right" href="/accreditation/parameter/{{$area->id}}/create"><i class="fa fa-plus"></i> &nbsp; Add Parameter</a>
                 @endif
             </div>
@@ -87,7 +87,6 @@
     <script type="text/javascript">
         function request_parameter(id)
         {
-            alert(id);
             $.post('/requestParameter', {_token:"{{csrf_token()}}",parameter: id, user:'{{Auth::user()->id}}'}, function(data){
                 window.location.reload();
             });

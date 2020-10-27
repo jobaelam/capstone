@@ -37,7 +37,17 @@ Route::get('accreditation/folder/{id}/create', 'FoldersController@create');
 
 Route::get('accreditation/file/{id}/upload', 'FilesController@create');
 
-Route::any('/requestParameter', 'ParametersController@request');
+Route::any('/requestParameter', 'ParametersController@requestParameter');
+
+Route::any('/requestFile', 'FilesController@requestFile');
+
+Route::any('/requestParameterApprove', 'ParametersController@requestParameterApprove');
+
+Route::any('/requestParameterDecline', 'ParametersController@requestParameterDecline');
+
+Route::any('/requestFileApprove', 'FilesController@requestFileApprove');
+
+Route::any('/requestFileDecline', 'FilesController@requestFileDecline');
 
 Route::resource('accreditation', 'AgenciesController');
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\File;
+use App\FileFlag;
 use App\Folder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,31 @@ class FilesController extends Controller
     public function index()
     {
         //
+    }
+
+    public function requestFile(Request $request)
+    {
+        //return $request->parameter;
+        $request_file = new FileFlag;
+        $request_file->file_id = $request->file;
+        $request_file->user = $request->user;
+        $request_file->flag = 2;
+        $request_file->save();
+        return $request_file;
+    }
+
+    public function requestFileApprove(Request $request)
+    {
+        //return $request->id;
+        //return ParameterFlag::find(7);
+        $request_file = FileFlag::find($request->id);
+        $request_file->flag = 1;
+        $request_file->save();
+    }
+
+    public function requestFileDecline(Request $request)
+    {
+       FileFlag::destroy($request->id);
     }
 
     public function openFile($id)
@@ -39,9 +65,9 @@ class FilesController extends Controller
         $data = [
             'folder_id' => $id,
             'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
-        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
-        where users.id != " . Auth::id() . " 
-        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
+                from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+                where users.id != " . Auth::id() . " 
+                group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
         return view('accreditation.file_upload')->with($data);
     }
@@ -75,9 +101,9 @@ class FilesController extends Controller
             'file_list' => File::where('folder_id', $File->folder_id)->get(),
             'folder' => Folder::find($File->folder_id),
             'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
-        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
-        where users.id != " . Auth::id() . " 
-        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
+                from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+                where users.id != " . Auth::id() . " 
+                group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.file_index')->with($data);;
@@ -92,13 +118,24 @@ class FilesController extends Controller
     public function show($id)
     {
         //
+        $request_files = FileFlag::where('user', Auth::user()->id)->distinct()->get('file_id');
+        if(count($request_files) > 0){
+            foreach($request_files as $file){
+                $request_file[] = $file->file_id; 
+            };
+        }else{
+           $request_file = array();
+        }
+
         $data = [
             'file_list' => File::where('folder_id', $id)->get(),
             'folder' => Folder::find($id),
+            'request_file' => $request_file,
+            'flags' => FileFlag::where('user', Auth::user()->id)->get(),
             'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
-        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
-        where users.id != " . Auth::id() . " 
-        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
+                from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+                where users.id != " . Auth::id() . " 
+                group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.file_index')->with($data);
@@ -116,9 +153,9 @@ class FilesController extends Controller
         $data = [
             'file' => File::find($id),
             'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
-        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
-        where users.id != " . Auth::id() . " 
-        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
+                from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+                where users.id != " . Auth::id() . " 
+                group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.file_edit')->with($data);
@@ -146,9 +183,9 @@ class FilesController extends Controller
             'file_list' => File::where('folder_id', $file->folder_id)->get(),
             'folder' => Folder::find($file->folder_id),
             'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
-        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
-        where users.id != " . Auth::id() . " 
-        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
+                from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+                where users.id != " . Auth::id() . " 
+                group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.file_index')->with($data);
@@ -168,9 +205,9 @@ class FilesController extends Controller
             'file_list' => File::where('folder_id', File::find($id)->folder_id)->get(),
             'folder' => Folder::find($id),
             'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
-        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
-        where users.id != " . Auth::id() . " 
-        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
+                from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+                where users.id != " . Auth::id() . " 
+                group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
 
         return view('accreditation.file_index')->with($id);

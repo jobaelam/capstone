@@ -3,7 +3,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Request Parameter</h1>
+    <h1>Request Files</h1>
 @stop
 
 @section('content')
@@ -29,10 +29,13 @@
                     <tr class="active">
                         <th width="75%">Request</th>
                         <th width="15%">Action</th>
-                                   @forelse($request_files as $request_file)
+                    @forelse($request_files as $request_file)
                         <tr>
-                            <td>{{$request_file}}</td>
-                            <td align="center"><a type="button" class="btn btn-primary btn-sm" href="#">Open</a></td>
+                            <td><strong>{{$request_file->hasUser->last_name}}, {{$request_file->hasUser->first_name}}</strong> want to access file <strong>{{$request_file->hasFile->hasFolder->name}}/{{ $request_file->hasFile->name }}</strong> in <strong>{{$request_file->hasFile->hasFolder->hasBenchmark->hasParameter->hasArea->hasDepartmentAccreditation->hasDepartment->name}}</strong></td>
+                            <td align="center">
+                                <a type="button" class="btn btn-primary btn-sm" href="#" onClick="this.disabled=true; request_file_approve({{$request_file->id}});">Approve</a>
+                                <a type="button" class="btn btn-danger btn-sm" href="#" onClick="this.disabled=true; request_file_decline({{$request_file->id}});">Decline</a>
+                            </td>
                         </tr>
                     @empty
                         <tr>
@@ -43,4 +46,21 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function request_file_approve(id)
+        {
+            //alert(id);
+            $.post('/requestFileApprove', {_token:"{{csrf_token()}}",id: id}, function(data){
+                // alert(data);
+                window.location.reload();
+            });
+        };
+
+        function request_file_decline(id)
+        {
+            $.post('/requestFileDecline', {_token:"{{csrf_token()}}",id: id}, function(data){
+                window.location.reload();
+            });
+        }
+    </script>
 @stop

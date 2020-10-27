@@ -43,15 +43,29 @@
                             <td>{{$file->name}}</td>
                             <td>{{$file->note}}</td>
                             <td>{{date('M d, Y',strtotime($file->created_at))}}</td>
-                            @if(Auth::user()->role->id == ('1' OR '2' OR '3'))
+                            @if(((Auth::user()->role->id == 2 OR Auth::user()->role->id == 3) AND Auth::user()->office_department_id == $folder->hasBenchmark->hasParameter->hasArea->hasDepartmentAccreditation->hasDepartment->id) OR Auth::user()->role->id == '1')
                                 <td align="center">
-                                <a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}/open" onClick="refreshPage();">Open</a>
+                                    <a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}/open">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/file/{{$file->id}}/edit">Edit</a>
-                                    {{-- <a type="button" class="btn btn-danger btn-sm" href="/accreditation/file/{{$file->id}}/destroy" onClick="refreshPage();">Delete</a> --}}
+                                </td>
+                            @elseif(Auth::user()->id == $folder->hasBenchmark->hasParameter->hasArea->head OR Auth::user()->role->id == '2')
+                                <td align="center">
+                                    <a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}/open">Open</a>
                                 </td>
                             @else
-                                <td align="center"><a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}">Open</a></td>
+                                @if(in_array($file->id, $request_file))
+                                    @foreach($flags as $request)
+                                        @if($request->file_id == $file->id AND $request->flag == 1)
+                                            <td align="center"><a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}/open}}">Open</a></td>
+                                        @elseif($request->file_id == $file->id AND $request->flag == 2)
+                                            <td align="center"><a type="button" class="btn btn-warning btn-sm" href="#" disabled="true">Pending</a></td>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <td align="center"><button class="btn btn-danger btn-sm" href="#" onClick="this.disabled=true; request_file({{$file->id}});">Request</button></td>
+                                @endif
                             @endif
+                            
                         </tr>
                     @empty
                         <tr>
@@ -60,7 +74,7 @@
                     @endforelse
                 </table>
                 <a type="button" class="btn btn-default" href="/accreditation/folder/{{$folder->benchmark_id}}" ><i class="fa fa-arrow-left"></i> Back</a>
-                @if(Auth::user()->role->id == ('1' OR '2' OR '3'))
+                @if(((Auth::user()->role->id == 2 OR Auth::user()->role->id == 3) AND Auth::user()->office_department_id == $folder->hasBenchmark->hasParameter->hasArea->hasDepartmentAccreditation->hasDepartment->id) OR Auth::user()->role->id == 1)
                     <a type="button" class="btn btn-info btn-download pull-right" href="/accreditation/file/{{$folder->id}}/upload"><i class="fa fa-plus"></i> &nbsp; Upload File</a>
                 @endif
             </div>
@@ -69,7 +83,15 @@
 
     <script>
         function refreshPage(){
-            window.location.reload();
+            //window.location.reload();
         } 
+
+        function request_file(id)
+        {
+            $.post('/requestFile', {_token:"{{csrf_token()}}",file: id, user:'{{Auth::user()->id}}'}, function(data){
+                alert('data');
+                //window.location.reload();
+            });
+        };
     </script>
 @stop

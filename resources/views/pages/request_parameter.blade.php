@@ -32,10 +32,10 @@
                     </tr>
                     @forelse($request_parameters as $request_parameter)
                         <tr>
-                            <td><strong>{{$request_parameter->hasUser->last_name}}, {{$request_parameter->hasUser->first_name}}</strong> want to access parameter <strong>{{ $request_parameter->hasParameter->name }}</strong></td>
+                            <td><strong>{{$request_parameter->hasUser->last_name}}, {{$request_parameter->hasUser->first_name}}</strong> want to access <strong>{{ $request_parameter->hasParameter->name }}</strong> in <strong>{{$request_parameter->hasParameter->hasArea->hasDepartmentAccreditation->hasDepartment->name}}</strong></td>
                             <td align="center">
-                                <a type="button" class="btn btn-primary btn-sm" href="#">Approve</a>
-                                <a type="button" class="btn btn-danger btn-sm" href="#">Decline</a>
+                                <a type="button" class="btn btn-primary btn-sm" href="#" onClick="this.disabled=true; request_parameter_approve({{$request_parameter->id}});">Approve</a>
+                                <a type="button" class="btn btn-danger btn-sm" href="#" onClick="this.disabled=true; request_parameter_decline({{$request_parameter->id}});">Decline</a>
                             </td>
                         </tr>
                     @empty
@@ -47,4 +47,21 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function request_parameter_approve(id)
+        {
+            //alert(id);
+            $.post('/requestParameterApprove', {_token:"{{csrf_token()}}",id: id}, function(data){
+                // alert(data);
+                window.location.reload();
+            });
+        };
+
+        function request_parameter_decline(id)
+        {
+            $.post('/requestParameterDecline', {_token:"{{csrf_token()}}",id: id}, function(data){
+                window.location.reload();
+            });
+        }
+    </script>
 @stop

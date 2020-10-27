@@ -11,6 +11,10 @@ class DepartmentAccreditation extends Model
         return $this->belongsTo(Department::class, 'department_id', 'id');
     }
 
+    public function hasUser(){
+        return $this->belongsTo(User::class, 'accreditation_head', 'id');
+    }
+
     public function hasAgency(){
     	return $this->belongsTo(Agency::class, 'agency_id', 'id');
     }

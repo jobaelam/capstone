@@ -97,7 +97,7 @@
                                     @endif
                                     <div class="btn-group" role="group" aria-label="...">
                                         <a href="/profile" class="btn btn-default btn-flat">Profile</a>
-                                        <a href="#" class="btn btn-default btn-flat">Settings</a>
+                                        {{-- <a href="#" class="btn btn-default btn-flat">Settings</a> --}}
                                     </div>
                                     <div class="pull-right">
                                             @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
@@ -185,8 +185,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu" style="display: none;">
-                            <li><a href="request/parameter"><i class="fa fa-circle"></i> Parameters</a></li>
-                            <li><a href="request/file"><i class="fa fa-circle"></i> Files</a></li>
+                            <li><a href="/request/parameter"><i class="fa fa-circle"></i> Parameters</a></li>
+                            <li><a href="/request/file"><i class="fa fa-circle"></i> Files</a></li>
                         </ul>
                     </li>
                     @endif

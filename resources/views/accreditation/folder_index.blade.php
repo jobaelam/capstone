@@ -41,7 +41,7 @@
                         <tr>
                             <td>{{$folder->name}}</td>
                             <td>{{$folder->note}}</td>
-                            @if(Auth::user()->role->id == ('1' OR '2' OR '3'))
+                            @if(Auth::user()->role->id == 1 OR Auth::user()->role->id == 2 OR Auth::user()->role->id == 3)
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$folder->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/folder/{{$folder->id}}/edit">Edit</a>
@@ -57,7 +57,7 @@
                     @endforelse
                 </table>
                 <a type="button" class="btn btn-default" href="/accreditation/benchmark/{{$benchmark->parameter_id}}" ><i class="fa fa-arrow-left"></i> Back</a>
-                @if(Auth::user()->role->id == ('1' OR '2' OR '3'))
+                @if(Auth::user()->role->id == 1 OR ((Auth::user()->role->id == 2 OR Auth::user()->role->id == 3) AND Auth::user()->office_department_id == $benchmark->hasParameter->hasArea->hasDepartmentAccreditation->hasDepartment->id))
                     <a type="button" class="btn btn-info btn-download pull-right" href="/accreditation/folder/{{$benchmark->id}}/create"><i class="fa fa-plus"></i> &nbsp; Create Folder</a>
                 @endif
             </div>

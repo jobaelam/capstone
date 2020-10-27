@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers;
 
@@ -31,7 +31,7 @@ class PagesController extends Controller
 
     public function showRequestFile(){
         $data = [
-            'request_files' => FileFlag::all(),
+            'request_files' => FileFlag::where('user', '!=', Auth::user()->id)->where('flag', '!=', 1)->get(),
             'users' => User::where('id', '!=', Auth::user()->id)->get(),
         ];
     	return view('pages.request_file')->with($data);
@@ -39,7 +39,7 @@ class PagesController extends Controller
 
     public function showRequestParameter(){
         $data = [
-            'request_parameters' => ParameterFlag::all(),
+            'request_parameters' => ParameterFlag::where('user', '!=', Auth::user()->id)->where('flag', '!=', 1)->get(),
             'users' => User::where('id', '!=', Auth::user()->id)->get(),
         ];
     	return view('pages.request_parameter')->with($data);
