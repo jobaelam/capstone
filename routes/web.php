@@ -27,6 +27,8 @@ Route::get('accreditation', 'PagesController@ShowAgency');
 
 Route::get('profile', 'PagesController@Profile');
 
+Route::get('profilepicture', 'PagesController@ProfilePicture');
+
 Route::get('accreditation/area/{id}/create', 'AreasController@create');
 
 Route::get('accreditation/parameter/{id}/create', 'ParametersController@create');

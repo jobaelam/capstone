@@ -136,7 +136,13 @@
         <aside class="main-sidebar">
             <div class="user-panel">
                 <div class="image">
-                    <img src="<?= Auth::user()->profile_image ?>" alt="avatar">
+                    @if(Auth::user()->id != 1)
+                        <a href="/profilepicture">
+                    @endif
+                        <img src="<?= Auth::user()->profile_image ?>" alt="avatar">
+                    @if(Auth::user()->id != 1)
+                        </a>
+                    @endif
                     <!-- <form name="upload-photo" method="post">
                         <a href="/my/v2/cropper.php" class="btn-upload" id="btn-upload-photo">
                             <img src="/my/v2/assets/img/profile-photos/x56dea6e99d665da885fc065c43c8726f.jpg.pagespeed.ic.FsQ8IifcHT.jpg" class="profile-photo " alt="User Image" data-pagespeed-url-hash="353616640" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
