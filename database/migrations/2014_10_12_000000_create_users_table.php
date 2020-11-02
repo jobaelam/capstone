@@ -30,7 +30,6 @@ class CreateUsersTable extends Migration
             $table->string('name_of_mother')->nullable();
             $table->string('name_of_spouse')->nullable();
             $table->string('permanent_address')->nullable();
-            $table->string('citizenship')->nullable();
             $table->unsignedBigInteger('office_department_id')->nullable();
             $table->foreign('office_department_id')->references('id')->on('departments');
             $table->unsignedBigInteger('role_id');
