@@ -70,7 +70,7 @@
                         <li class="dropdown user user-menu">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
                                 <div class="user-image">
-                                    <img src="{{ URL::asset('storage/avatar/'.Auth::user()->profile_image) }}" alt="User Image" style="display: block; max-width:2.7em;max-height:2.7em; width: auto; height: auto;">
+                                    <img src="{{ URL::asset('storage/avatar/'.Auth::user()->profile_image) }}" alt="User Image" style="display: block; max-width:auto; max-height:auto;" >
                                     {{-- <img src="<?= Auth::user()->profile_image ?>" alt="User Image"> --}}
                                 </div>
                                 <span class="hidden-xs"><?= Auth::user()->first_name; ?></span>
@@ -80,7 +80,7 @@
                                 <li class="user-header">
                                     <div class="user-image">
                                         <a href="#" title="View Profile">
-                                            <img src="{{ URL::asset('storage/avatar/'.Auth::user()->profile_image) }}" alt="User Image" style="display: block; max-width:9.5em;max-height:9.5em; width: auto; height: auto;">
+                                            <img src="{{ URL::asset('storage/avatar/'.Auth::user()->profile_image) }}" alt="User Image" style="display: block; max-width:auto; max-height:auto;">
                                         </a>
                                     </div>
                                     <p>
@@ -142,7 +142,7 @@
                     @if(Auth::user()->id != 1)
                         <a href="/profilepicture">
                     @endif
-                        <img src="{{ URL::asset('storage/avatar/'.Auth::user()->profile_image) }}" alt="avatar" style="display: block; max-width:13em;max-height:13em; width: auto; height: auto;">
+                        <img src="{{ URL::asset('storage/avatar/'.Auth::user()->profile_image) }}" alt="avatar" style="display: block; max-width:100%;max-height:100%;">
                     @if(Auth::user()->id != 1)
                         </a>
                     @endif

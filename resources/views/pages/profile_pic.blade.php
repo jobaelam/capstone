@@ -15,7 +15,7 @@
           @csrf
           <div id="image-cropper">
             <div class="image-container" id="imagePreview">
-              <img src="{{ URL::asset('storage/avatar/'.$user->profile_image) }}" class="image-preview__image" style="display: block; max-width:285px;max-height:285px; width: auto; height: auto; margin-left: 0px; margin-top: 0px; transform: none; text-align: center">
+              <img src="{{ URL::asset('storage/avatar/'.$user->profile_image) }}" class="image-preview__image" style="display: block; width:285px;height:285px; margin-left: 0px; margin-top: 0px; transform: none; text-align: center">
             </div>
           </div><br>
           <div class="btn-group doc-actions pull-right">

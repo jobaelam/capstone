@@ -86,7 +86,7 @@ class PagesController extends Controller
         $user->profile_image = $imageNameToStore;
         $user->save();
 
-        //return redirect('profilepicture');
+        return redirect('profilepicture');
     }
 
     public function message(){
