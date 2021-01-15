@@ -64,12 +64,29 @@ class PagesController extends Controller
 
     public function ProfilePicture(){
         $data = [
+            'user' => Auth::user(),
             'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
-        from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
-        where users.id != " . Auth::id() . " 
-        group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
+         from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
+         where users.id != " . Auth::id() . " 
+         group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
         ];
         return view('pages.profile_pic')->with($data);
+    }
+
+    public function StoreProfilePicture(Request $request){
+        if($request->hasFile('inpPicture') && $request->file('inpPicture')->isValid()){
+            $imagenameWithExt = $request->inpPicture->getClientOriginalName();
+            $imagename = pathinfo($imagenameWithExt,PATHINFO_FILENAME);
+            $extension = $request->inpPicture->getClientOriginalExtension();  
+            $imageNameToStore = Auth::user()->last_name.'_'.time().'.'.$extension;
+            $path = $request->inpPicture->storeAs('public/avatar/',$imageNameToStore);
+        }
+
+        $user = Auth::user();
+        $user->profile_image = $imageNameToStore;
+        $user->save();
+
+        //return redirect('profilepicture');
     }
 
     public function message(){

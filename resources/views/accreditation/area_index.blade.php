@@ -59,6 +59,9 @@
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/parameter/{{$area->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/area/{{$area->id}}/edit">Edit</a>
+                                    @if(Auth::user()->role->id == 1)
+                                        <a type="button" class="btn btn-danger btn-sm" href="/accreditation/area/{{$area->id}}/destroy">Delete</a>
+                                    @endif
                                 </td>
                             @else
                                 <td align="center">
@@ -73,9 +76,9 @@
                         </tr>
                     @endforelse
                 </table>
-                <a type="button" class="btn btn-default" href="/accreditation/department/{{$department_accreditation}}" ><i class="fa fa-arrow-left"></i> Back</a>
-                @if(((Auth::user()->role->id == 2 OR Auth::user()->role->id == 3) AND Auth::user()->office_department_id == $area->department_accreditation_id) OR Auth::user()->role->id == 1)
-                    <a type="button" class="btn btn-info btn-download pull-right" href="/accreditation/area/{{$department_accreditation}}/create"><i class="fa fa-plus"></i> &nbsp; Add Area</a>
+                <a type="button" class="btn btn-default" href="/accreditation/department/{{$department_accreditation->agency_id}}" ><i class="fa fa-arrow-left"></i> Back</a>
+                @if(((Auth::user()->role->id == 2 OR Auth::user()->role->id == 3) AND Auth::user()->office_department_id == $department_accreditation->id) OR Auth::user()->role->id == 1)
+                    <a type="button" class="btn btn-info btn-download pull-right" href="/accreditation/area/{{$department_accreditation->id}}/create"><i class="fa fa-plus"></i> &nbsp; Add Area</a>
                 @endif
             </div>
         </div>

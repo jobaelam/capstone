@@ -2,8 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Agency;
+use App\DepartmentAccreditation;
+use App\Area;
+use App\Parameter;
 use App\Benchmark;
 use App\Folder;
+use App\File;
+use App\Department;
+use App\FileFlag;
+use App\BenchmarkList;
+use App\ParameterFlag;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -142,5 +152,16 @@ class FoldersController extends Controller
     public function destroy($id)
     {
         //
+
+        $file_list = File::where('folder_id', $id)->get();
+        foreach($file_list as $file){
+            $file->delete();
+        }
+
+        $benchmark_id = Folder::find($id)->benchmark_id;
+        
+        Folder::find($id)->delete();
+
+        return redirect('accreditation/folder/'.$benchmark_id.'');
     }
 }

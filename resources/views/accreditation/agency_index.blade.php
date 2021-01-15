@@ -47,6 +47,7 @@
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="accreditation/department/{{$agency->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/{{$agency->id}}/edit">Edit</a>
+                                    <a type="button" class="btn btn-danger btn-sm" href="/accreditation/{{$agency->id}}/destroy">Delete</a>
                                 </td>
                             @else
                                 <td align="center"><a type="button" class="btn btn-primary btn-sm" href="accreditation/department/{{$agency->id}}">Open</a></td>
@@ -60,7 +61,7 @@
                 </table>
                 <!-- <a type="button" class="btn btn-default" href="/" ><i class="fa fa-arrow-left"></i> Back</a> -->
                 @if(Auth::user()->role->id == '1')
-                    <a type="button" class="btn btn-info btn-download pull-right" href="accreditation/create"><i class="fa fa-plus"></i> &nbsp; Add Agency</a>
+                    <a type="button" class="btn btn-info btn-download pull-right" href="accreditation/create"><i class="fa fa-plus"></i> &nbsp; Add Accrediting Agency</a>
                 @endif
             </div>
         </div>

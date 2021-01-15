@@ -29,15 +29,25 @@ Route::get('profile', 'PagesController@Profile');
 
 Route::get('profilepicture', 'PagesController@ProfilePicture');
 
+Route::any('/pages/StoreProfilePicture', 'PagesController@StoreProfilePicture')->name('pages.StoreProfilePicture');
+
 Route::get('accreditation/area/{id}/create', 'AreasController@create');
 
+Route::get('accreditation/area/{id}/destroy', 'AreasController@destroy');
+
 Route::get('accreditation/parameter/{id}/create', 'ParametersController@create');
+
+Route::get('accreditation/parameter/{id}/destroy', 'ParametersController@destroy');
 
 Route::get('accreditation/benchmark/{id}/create', 'BenchmarksController@create');
 
 Route::get('accreditation/folder/{id}/create', 'FoldersController@create');
 
+Route::get('accreditation/folder/{id}/destroy', 'FoldersController@destroy');
+
 Route::get('accreditation/file/{id}/upload', 'FilesController@create');
+
+Route::get('accreditation/file/{id}/destroy', 'FilesController@destroy');
 
 Route::any('/requestParameter', 'ParametersController@requestParameter');
 
@@ -50,6 +60,8 @@ Route::any('/requestParameterDecline', 'ParametersController@requestParameterDec
 Route::any('/requestFileApprove', 'FilesController@requestFileApprove');
 
 Route::any('/requestFileDecline', 'FilesController@requestFileDecline');
+
+Route::any('accreditation/{id}/destroy', 'AgenciesController@destroy');
 
 Route::resource('accreditation', 'AgenciesController');
 

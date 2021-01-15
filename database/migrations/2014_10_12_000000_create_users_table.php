@@ -49,7 +49,7 @@ class CreateUsersTable extends Migration
                 'role_id' => '1',
                 'email' => 'admin',
                 'password' => Hash::make('admin'),
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -62,7 +62,7 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('1234'),
                 'office_department_id' => '1',
                 'role_id' => '4',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -74,7 +74,7 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('1234'),
                 'office_department_id' => '1',
                 'role_id' => '2',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -85,8 +85,8 @@ class CreateUsersTable extends Migration
                 'email' => 'febro@gmail.com',
                 'password' => Hash::make('1234'),
                 'office_department_id' => '1',
-                'role_id' => '1',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'role_id' => '4',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -98,7 +98,7 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('1234'),
                 'office_department_id' => '1',
                 'role_id' => '4',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -110,9 +110,46 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('1234'),
                 'office_department_id' => '1',
                 'role_id' => '4',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
+        //Infromation System
+        DB::table('users')->insert(
+            array(
+                'first_name' => 'Jerina Jean',
+                'last_name' => 'Ecleo',
+                'email' => 'ecleo@gmail.com',
+                'password' => Hash::make('1234'),
+                'office_department_id' => '1',
+                'role_id' => '4',
+                'profile_image' => 'default-avatar.png',
+            )
+        );
+
+        DB::table('users')->insert(
+            array(
+                'first_name' => 'Adrian',
+                'last_name' => 'Galido',
+                'email' => 'galido@gmail.com',
+                'password' => Hash::make('1234'),
+                'office_department_id' => '1',
+                'role_id' => '1',
+                'profile_image' => 'default-avatar.png',
+            )
+        );
+
+        DB::table('users')->insert(
+            array(
+                'first_name' => 'Jerame',
+                'last_name' => 'Beloy',
+                'email' => 'beloy@gmail.com',
+                'password' => Hash::make('1234'),
+                'office_department_id' => '1',
+                'role_id' => '2',
+                'profile_image' => 'default-avatar.png',
+            )
+        );
+
         //Computer Studies
         DB::table('users')->insert(
             array(
@@ -120,9 +157,9 @@ class CreateUsersTable extends Migration
                 'last_name' => 'Crisostomo',
                 'email' => 'crisostomo@gmail.com',
                 'password' => Hash::make('1234'),
-                'office_department_id' => '2',
+                'office_department_id' => '3',
                 'role_id' => '2',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -132,9 +169,9 @@ class CreateUsersTable extends Migration
                 'last_name' => 'Maulana',
                 'email' => 'maulana@gmail.com',
                 'password' => Hash::make('1234'),
-                'office_department_id' => '2',
+                'office_department_id' => '3',
                 'role_id' => '4',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -144,9 +181,9 @@ class CreateUsersTable extends Migration
                 'last_name' => 'Obach',
                 'email' => 'obach@gmail.com',
                 'password' => Hash::make('1234'),
-                'office_department_id' => '2',
+                'office_department_id' => '3',
                 'role_id' => '4',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -156,9 +193,9 @@ class CreateUsersTable extends Migration
                 'last_name' => 'Perez',
                 'email' => 'perez@gmail.com',
                 'password' => Hash::make('1234'),
-                'office_department_id' => '2',
+                'office_department_id' => '3',
                 'role_id' => '4',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -168,9 +205,9 @@ class CreateUsersTable extends Migration
                 'last_name' => 'Montemayor',
                 'email' => 'montemayor@gmail.com',
                 'password' => Hash::make('1234'),
-                'office_department_id' => '2',
+                'office_department_id' => '3',
                 'role_id' => '4',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
         //Electronics Engineering Tech
@@ -180,9 +217,9 @@ class CreateUsersTable extends Migration
                 'last_name' => 'Marajas',
                 'email' => 'marajas@gmail.com',
                 'password' => Hash::make('1234'),
-                'office_department_id' => '3',
+                'office_department_id' => '4',
                 'role_id' => '2',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -192,9 +229,9 @@ class CreateUsersTable extends Migration
                 'last_name' => 'Galucan',
                 'email' => 'galucan@gmail.com',
                 'password' => Hash::make('1234'),
-                'office_department_id' => '3',
+                'office_department_id' => '4',
                 'role_id' => '4',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -204,9 +241,9 @@ class CreateUsersTable extends Migration
                 'last_name' => 'Gaw',
                 'email' => 'gaw@gmail.com',
                 'password' => Hash::make('1234'),
-                'office_department_id' => '3',
+                'office_department_id' => '4',
                 'role_id' => '4',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -216,9 +253,9 @@ class CreateUsersTable extends Migration
                 'last_name' => 'Mendoza',
                 'email' => 'mendoza@gmail.com',
                 'password' => Hash::make('1234'),
-                'office_department_id' => '3',
+                'office_department_id' => '4',
                 'role_id' => '4',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
 
@@ -228,9 +265,9 @@ class CreateUsersTable extends Migration
                 'last_name' => 'Nabua',
                 'email' => 'nabua@gmail.com',
                 'password' => Hash::make('1234'),
-                'office_department_id' => '3',
+                'office_department_id' => '4',
                 'role_id' => '4',
-                'profile_image' => 'http://via.placeholder.com/150x150',
+                'profile_image' => 'default-avatar.png',
             )
         );
     }

@@ -200,16 +200,10 @@ class FilesController extends Controller
     public function destroy($id)
     {
         //
+        $folder_id = File::find($id)->folder_id;
+        
         File::find($id)->delete();
-        $data = [
-            'file_list' => File::where('folder_id', File::find($id)->folder_id)->get(),
-            'folder' => Folder::find($id),
-            'users' => DB::select("select users.id, users.first_name, users.last_name, users.profile_image, users.email, count(is_read) as unread 
-                from users LEFT  JOIN  messages ON users.id = messages.from and is_read = 0 and messages.to = " . Auth::id() . "
-                where users.id != " . Auth::id() . " 
-                group by users.id, users.first_name, users.last_name, users.profile_image, users.email"),
-        ];
 
-        return view('accreditation.file_index')->with($id);
+        return redirect('accreditation/file/'.$folder_id.'');
     }
 }

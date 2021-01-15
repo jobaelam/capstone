@@ -18,7 +18,7 @@ class CreateAreasTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->unsignedBigInteger('department_accreditation_id');
-            $table->foreign('department_accreditation_id')->references('id')->on('departments');
+            $table->foreign('department_accreditation_id')->references('id')->on('department_accreditations');
             $table->unsignedBigInteger('head')->nullable();
             $table->foreign('head')->references('id')->on('users');
             $table->decimal('status',3,2)->default(0);

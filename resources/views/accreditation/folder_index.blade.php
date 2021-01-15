@@ -45,6 +45,9 @@
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$folder->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/folder/{{$folder->id}}/edit">Edit</a>
+                                    @if(Auth::user()->role->id == 1)
+                                        <a type="button" class="btn btn-danger btn-sm" href="/accreditation/folder/{{$folder->id}}/destroy">Delete</a>
+                                    @endif
                                 </td>
                             @else
                                 <td align="center"><a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$folder->id}}">Open</a></td>

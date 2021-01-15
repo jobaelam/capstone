@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Parameter;
-use App\User;
+use App\Agency;
+use App\DepartmentAccreditation;
 use App\Area;
+use App\Parameter;
+use App\Benchmark;
+use App\Folder;
+use App\File;
+use App\Department;
 use App\FileFlag;
 use App\BenchmarkList;
-use App\Benchmark;
 use App\ParameterFlag;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -82,22 +87,20 @@ class ParametersController extends Controller
             'parameter_description' => 'required'
         ]);
 
-        $area_list = Area::all();
         $benchmark_list = BenchmarkList::all();
-
-        foreach($area_list as $area){
-            $parameter = new Parameter;
-            $parameter->name = $request->parameter_name;
-            $parameter->description = $request->parameter_description;
-            $parameter->area_id = $area->id;
-            $parameter->save();
-            foreach($benchmark_list as $benchmark_name){
-                $benchmark = new Benchmark;
-                $benchmark->benchmark_name_id = $benchmark_name->id;
-                $benchmark->parameter_id = $parameter->id;
-                $benchmark->save();
-            }
+        
+        $parameter = new Parameter;
+        $parameter->name = $request->parameter_name;
+        $parameter->description = $request->parameter_description;
+        $parameter->area_id = $request->area_id;
+        $parameter->save();
+        foreach($benchmark_list as $benchmark_name){
+            $benchmark = new Benchmark;
+            $benchmark->benchmark_name_id = $benchmark_name->id;
+            $benchmark->parameter_id = $parameter->id;
+            $benchmark->save();
         }
+        
 
 
         //Parameter Total Status
@@ -217,5 +220,29 @@ class ParametersController extends Controller
     public function destroy($id)
     {
         //
+        $parameter_flag_list = ParameterFlag::where('parameter_id', $id)->get();
+        foreach($parameter_flag_list as $parameter_flag){
+            $parameter_flag->delete();
+        }
+
+        $benchmark_list = Benchmark::where('parameter_id', $id)->get();
+
+        foreach($benchmark_list as $benchmark){
+            $folder_list = Folder::where('benchmark_id', $benchmark->id)->get();
+            foreach($folder_list as $folder){
+                $file_list = File::where('folder_id', $folder->id)->get();
+                foreach($file_list as $file){
+                    $file->delete();
+                }
+                $folder->delete();
+            }
+            $benchmark->delete();
+        }
+
+        $area_id = Parameter::find($id)->area_id;
+        
+        Parameter::find($id)->delete();
+
+        return redirect('accreditation/parameter/'.$area_id.'');
     }
 }

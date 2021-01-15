@@ -15,7 +15,9 @@
 
 @section('body')
     <div class="wrapper">
-
+        @php
+            date_default_timezone_set('Asia/Manila');
+        @endphp
         <!-- Main Header -->
         <header class="main-header">
             @if(config('adminlte.layout') == 'top-nav')
@@ -68,7 +70,8 @@
                         <li class="dropdown user user-menu">
                             <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
                                 <div class="user-image">
-                                    <img src="<?= Auth::user()->profile_image ?>" alt="User Image">
+                                    <img src="{{ URL::asset('storage/avatar/'.Auth::user()->profile_image) }}" alt="User Image" style="display: block; max-width:2.7em;max-height:2.7em; width: auto; height: auto;">
+                                    {{-- <img src="<?= Auth::user()->profile_image ?>" alt="User Image"> --}}
                                 </div>
                                 <span class="hidden-xs"><?= Auth::user()->first_name; ?></span>
                             </a>
@@ -77,7 +80,7 @@
                                 <li class="user-header">
                                     <div class="user-image">
                                         <a href="#" title="View Profile">
-                                            <img src="<?= Auth::user()->profile_image ?>" alt="User Image">
+                                            <img src="{{ URL::asset('storage/avatar/'.Auth::user()->profile_image) }}" alt="User Image" style="display: block; max-width:9.5em;max-height:9.5em; width: auto; height: auto;">
                                         </a>
                                     </div>
                                     <p>
@@ -139,7 +142,7 @@
                     @if(Auth::user()->id != 1)
                         <a href="/profilepicture">
                     @endif
-                        <img src="<?= Auth::user()->profile_image ?>" alt="avatar">
+                        <img src="{{ URL::asset('storage/avatar/'.Auth::user()->profile_image) }}" alt="avatar" style="display: block; max-width:13em;max-height:13em; width: auto; height: auto;">
                     @if(Auth::user()->id != 1)
                         </a>
                     @endif

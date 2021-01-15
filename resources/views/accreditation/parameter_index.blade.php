@@ -52,6 +52,9 @@
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/benchmark/{{$parameter->id}}">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/parameter/{{$parameter->id}}/edit">Edit</a>
+                                    @if(Auth::user()->role->id == 1)
+                                    <a type="button" class="btn btn-danger btn-sm" href="/accreditation/parameter/{{$parameter->id}}/destroy">Delete</a>
+                                    @endif
                                 </td>
                             @elseif(Auth::user()->id == $area->head)
                                 <td align="center">

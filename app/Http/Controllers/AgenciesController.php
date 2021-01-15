@@ -3,8 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Agency;
-use App\Department;
 use App\DepartmentAccreditation;
+use App\Area;
+use App\Parameter;
+use App\Benchmark;
+use App\Folder;
+use App\File;
+use App\Department;
+use App\FileFlag;
+use App\BenchmarkList;
+use App\ParameterFlag;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -143,5 +152,37 @@ class AgenciesController extends Controller
     public function destroy($id)
     {
         //
+        $department_list = DepartmentAccreditation::where('agency_id', $id)->get();
+        foreach($department_list as $department){
+            $area_list = Area::where('department_accreditation_id', $department->id)->get();
+            foreach($area_list as $area){
+                $parameter_list = Parameter::where('area_id', $area->id)->get();
+                $parameter_flag_list = ParameterFlag::where('parameter_id', $parameter->id)->get();
+                foreach($parameter_flag_list as $parameter_flag){
+                    $parameter_flag->delete();
+                }
+                foreach($parameter_list as $parameter){
+                    $benchmark_list = Benchmark::where('parameter_id', $parameter->id)->get();
+                    foreach($benchmark_list as $benchmark){
+                        $folder_list = Folder::where('benchmark_id', $benchmark->id)->get();
+                        foreach($folder_list as $folder){
+                            $file_list = File::where('folder_id', $folder->id)->get();
+                            foreach($file_list as $file){
+                                $file->delete();
+                            }
+                            $folder->delete();
+                        }
+                        $benchmark->delete();
+                    }
+                    $parameter->delete();
+                }
+                $area->delete();
+            }
+            $department->delete();
+        }
+
+        Agency::find($id)->delete();
+
+        return redirect('accreditation');
     }
 }

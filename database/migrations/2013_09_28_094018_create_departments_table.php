@@ -23,7 +23,14 @@ class CreateDepartmentsTable extends Migration
 
         DB::table('departments')->insert(
             array(
-                'name' => 'Department of Information Technology',
+                'name' => 'Department of Information Technology - BSIT',
+                'college_id' => '1'
+            )
+        );
+
+        DB::table('departments')->insert(
+            array(
+                'name' => 'Department of Information Technology - BSIS',
                 'college_id' => '1'
             )
         );

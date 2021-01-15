@@ -47,6 +47,9 @@
                                 <td align="center">
                                     <a type="button" class="btn btn-primary btn-sm" href="/accreditation/file/{{$file->id}}/open">Open</a>
                                     <a type="button" class="btn btn-default btn-sm" href="/accreditation/file/{{$file->id}}/edit">Edit</a>
+                                    @if(Auth::user()->role->id == 1)
+                                        <a type="button" class="btn btn-danger btn-sm" href="/accreditation/file/{{$file->id}}/destroy">Delete</a>
+                                    @endif
                                 </td>
                             @elseif(Auth::user()->id == $folder->hasBenchmark->hasParameter->hasArea->head OR Auth::user()->role->id == '2')
                                 <td align="center">
